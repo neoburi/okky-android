@@ -235,6 +235,9 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
             DrawerMenu.BUG_REPORT ->{
                 loadUrl(menu.path())
             }
+            DrawerMenu.SOURCE ->{
+                loadUrl(menu.path())
+            }
             DrawerMenu.CONTACT ->{
                 mWebWrapper?.launchEmailApp(menu.path())
             }

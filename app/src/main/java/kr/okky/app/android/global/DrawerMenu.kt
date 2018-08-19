@@ -27,7 +27,8 @@ enum class DrawerMenu constructor(private val path:String, private val menuName:
     JOBS_RESUMES_FULLTIME("/articles/recruit?filter.jobType=FULLTIME", "구인[정규직]"),
 
     CONTACT("info@okky.kr", "Contact"),
-    BUG_REPORT("https://github.com/okjsp/okky/issues", "Github Issues");
+    BUG_REPORT("https://github.com/okjsp/okky/issues", "Github Issues"),
+    SOURCE("https://github.com/neoburi/okky-android.git", "Source");
 
     fun path():String = path
     fun menuName():String = menuName

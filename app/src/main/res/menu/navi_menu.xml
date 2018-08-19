@@ -100,5 +100,12 @@
         android:id="@+id/nav_menu_21"
         android:icon="@drawable/ic_bug_report_black_48dp"
         android:title="@string/navi_bug_report" />
-
+    <group
+        android:id="@+id/nav_menu_source"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_menu_22"
+            android:icon="@drawable/ic_source_black_48dp"
+            android:title="@string/navi_source" />
+    </group>
 </menu>
