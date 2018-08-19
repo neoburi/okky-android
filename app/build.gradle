@@ -18,10 +18,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    /*def props = new Properties()
-    file("$keyfile/key.properties").withInputStream { props.load(it) }
-    println props['store.file']*/
-
     signingConfigs {
         release {
             storeFile(file(keyStoreFile))
