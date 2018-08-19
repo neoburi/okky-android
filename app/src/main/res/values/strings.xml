@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">OKKY Exp</string>
+    <string name="exit_msg">한 번 더 누르시면 종료됩니다.</string>
+
+    <string name="splash_title">All That Developer</string>
+    <string name="copyright">eBrain Management</string>
+
+    <string name="txt_permission_desc_1">서비스 이용을 위해 다음의 권한을 사용하고 있으며 이를 확인합니다.</string>
+    <string name="txt_permission_denied">앱 이용을 위한 권한 승인이 진행되지 않았습니다.</string>
+    <string name="txt_login_session_not_valid">로그인 세션이 유효하지 않습니다.</string>
+    <string name="txt_invalid_id_or_pwd">아이디 또는 비밀번호가 올바르지 않습니다.</string>
+    <string name="txt_selection">선택하세요!</string>
+    <string name="nav_header_desc">Community for developers</string>
+
+    <string name="txt_context_menu_title">선택하세요.</string>
+    <string name="txt_context_menu_download">다운로드</string>
+    <string name="txt_context_menu_share">내보내기</string>
+    <string name="txt_context_menu_download_start">다운로드가 시작 되었습니다.</string>
+    <string name="txt_context_menu_download_fail">다운로드가 되지 않았습니다.</string>
+
+    <string name="drawer_header_text">Drawer Header</string>
+    <string name="navi_qna">Q&amp;A</string>
+    <string name="navi_qna_0">Tech Q&amp;A</string>
+    <string name="navi_qna_1">Blockchain Q&amp;A</string>
+
+    <string name="navi_tech">Tech</string>
+    <string name="navi_tech_0">IT News &amp; 정보</string>
+    <string name="navi_tech_1">Tips &amp; 강좌</string>
+
+    <string name="navi_comm">커뮤니티</string>
+    <string name="navi_comm_0">공지사항</string>
+    <string name="navi_comm_1">사는얘기</string>
+    <string name="navi_comm_2">포럼</string>
+    <string name="navi_comm_3">IT행사</string>
+    <string name="navi_comm_4">정기모임/스터디</string>
+    <string name="navi_comm_5">학원홍보</string>
+
+    <string name="navi_jobs">Jobs</string>
+    <string name="navi_jobs_0">좋은회사/나쁜회사</string>
+    <string name="navi_jobs_1">구인</string>
+    <string name="navi_jobs_2">구직</string>
+    <string name="navi_jobs_3">eBrainJobs</string>
+    <string name="navi_jobs_4">구인(정규직)</string>
+
+    <string name="navi_columns">컬럼</string>
+
+    <string name="navi_contact">Contact</string>
+    <string name="navi_bug_report">Bug Report(Github issue)</string>
+    <string name="navi_facebook">Facebook</string>
+
+    <array name="navi_drawer">
+        <item>Q&amp;A</item>
+        <item>Tech Q&amp;A</item>
+        <item>Blockchain Q&amp;A</item>
+        <item>Tech</item>
+        <item>IT News &amp; 정보</item>
+        <item>Tips &amp; 강좌</item>
+    </array>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>

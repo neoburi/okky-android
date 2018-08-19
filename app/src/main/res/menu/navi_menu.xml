@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/nav_menu_qna"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_menu_0"
+            android:icon="@drawable/ic_question_answer_black_48dp"
+            android:title="@string/navi_qna" />
+        <item
+            android:id="@+id/nav_menu_1"
+            android:title="@string/navi_qna_0" />
+        <item
+            android:id="@+id/nav_menu_2"
+            android:title="@string/navi_qna_1" />
+    </group>
+    <group
+        android:id="@+id/nav_menu_tech"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_menu_3"
+            android:icon="@drawable/ic_code_black_48dp"
+            android:title="@string/navi_tech" />
+        <item
+            android:id="@+id/nav_menu_4"
+            android:title="@string/navi_tech_0" />
+        <item
+            android:id="@+id/nav_menu_5"
+            android:title="@string/navi_tech_1" />
+    </group>
+
+    <group
+        android:id="@+id/nav_menu_community"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_menu_6"
+            android:icon="@drawable/ic_chat_black_48dp"
+            android:title="@string/navi_comm" />
+        <item
+            android:id="@+id/nav_menu_7"
+            android:title="@string/navi_comm_0" />
+        <item
+            android:id="@+id/nav_menu_8"
+            android:title="@string/navi_comm_1" />
+        <item
+            android:id="@+id/nav_menu_9"
+            android:title="@string/navi_comm_2" />
+        <item
+            android:id="@+id/nav_menu_10"
+            android:title="@string/navi_comm_3" />
+        <item
+            android:id="@+id/nav_menu_11"
+            android:title="@string/navi_comm_4" />
+        <item
+            android:id="@+id/nav_menu_12"
+            android:title="@string/navi_comm_5" />
+    </group>
+    <group
+        android:id="@+id/nav_menu_columns"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_menu_13"
+            android:icon="@drawable/ic_border_color_black_48dp"
+            android:title="@string/navi_columns" />
+    </group>
+    <group
+        android:id="@+id/nav_menu_jobs"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_menu_14"
+            android:icon="@drawable/ic_business_black_48dp"
+            android:title="@string/navi_jobs" />
+        <item
+            android:id="@+id/nav_menu_15"
+            android:title="@string/navi_jobs_0" />
+        <item
+            android:id="@+id/nav_menu_16"
+            android:title="@string/navi_jobs_1" />
+        <item
+            android:id="@+id/nav_menu_17"
+            android:title="@string/navi_jobs_2" />
+        <item
+            android:id="@+id/nav_menu_18"
+            android:title="@string/navi_jobs_3" />
+        <item
+            android:id="@+id/nav_menu_19"
+            android:title="@string/navi_jobs_4" />
+    </group>
+    <group
+        android:id="@+id/nav_menu_delim"
+        android:checkableBehavior="none"/>
+    <item
+        android:id="@+id/nav_menu_20"
+        android:icon="@drawable/ic_contacts_black_48dp"
+        android:title="@string/navi_contact" />
+    <item
+        android:id="@+id/nav_menu_21"
+        android:icon="@drawable/ic_bug_report_black_48dp"
+        android:title="@string/navi_bug_report" />
+
+</menu>
