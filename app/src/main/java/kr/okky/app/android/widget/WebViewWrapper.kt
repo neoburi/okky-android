@@ -132,7 +132,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             val cookies = CookieManager.getInstance().getCookie(url)
             //OkkyLog.log("url onPageStarted:$url , cookies:$cookies")
-            BusProvider.instance().post(BusEvent(BusEvent.Evt.BOTTOM_DISABLE))
+            BusProvider.eventBus.post(BusEvent(BusEvent.Evt.BOTTOM_DISABLE))
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
@@ -189,7 +189,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                     false -> {
                         mActivity.closeSpinner(R.id.progress)
                         mActivity.hideBgLogo()
-                        BusProvider.instance().post(BusEvent(BusEvent.Evt.BOTTOM_HISTORY))
+                        BusProvider.eventBus.post(BusEvent(BusEvent.Evt.BOTTOM_HISTORY))
                     }
                 }
             }

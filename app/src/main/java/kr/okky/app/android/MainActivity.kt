@@ -122,13 +122,13 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     }
 
     override fun onResume() {
-        BusProvider.instance().register(MainActivity@this)
-        BusProvider.instance().post(BusEvent(BusEvent.Evt.BOTTOM_HISTORY))
+        BusProvider.eventBus.register(MainActivity@this)
+        BusProvider.eventBus.post(BusEvent(BusEvent.Evt.BOTTOM_HISTORY))
         super.onResume()
     }
 
     override fun onPause() {
-        BusProvider.instance().unregister(MainActivity@this)
+        BusProvider.eventBus.unregister(MainActivity@this)
         super.onPause()
     }
 

@@ -51,7 +51,7 @@ class BottomMenu : LinearLayout {
 
     private inner class BottomMenuClickListener internal constructor(private val mMenu: Menu) : View.OnClickListener {
         override fun onClick(view: View) {
-            BusProvider.instance().post(mMenu)
+            BusProvider.eventBus.post(mMenu)
         }
     }
 
