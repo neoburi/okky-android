@@ -33,18 +33,19 @@ class BottomMenu : LinearLayout {
 
     private fun initMenu(context: Context) {
         val inflater = LayoutInflater.from(context)
-        Menu.values().forEach {
-            if (it.isBottomMenu()) {
-                val menuBox = inflater.inflate(R.layout.bottom_menu, null) as RelativeLayout
-                val menuBoxParam = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, mWeight)
-                menuBox.layoutParams = menuBoxParam
 
-                val ib = menuBox.findViewById<ImageButton>(R.id.ic_menu)
-                ib.setImageResource(it.resId())
-                ib.setOnClickListener(BottomMenuClickListener(it))
-                mBottomBtns[it.ordinal] = ib
-                addView(menuBox)
-            }
+        Menu.values().filter{
+            it.isBottomMenu()
+        }.forEach {
+            val menuBox = inflater.inflate(R.layout.bottom_menu, null) as RelativeLayout
+            val menuBoxParam = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, mWeight)
+            menuBox.layoutParams = menuBoxParam
+
+            val ib = menuBox.findViewById<ImageButton>(R.id.ic_menu)
+            ib.setImageResource(it.resId())
+            ib.setOnClickListener(BottomMenuClickListener(it))
+            mBottomBtns[it.ordinal] = ib
+            addView(menuBox)
         }
     }
 
