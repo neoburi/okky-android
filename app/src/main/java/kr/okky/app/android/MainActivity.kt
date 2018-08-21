@@ -35,6 +35,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     private var mBottomBar:BottomMenu? = null
     private var mDrawerMenuMap = HashMap<Int, DrawerMenu>()
     private var mShowKeyboard:Boolean = false
+    private var mNavigationView:NavigationView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,23 +57,26 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
 
         registerForContextMenu(mWebWrapper?.mWebView)//register context menu for long click download
 
-        initDrawerMenus()
+
         val drawer = getView(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
                 this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
-        val navigationView = getView(R.id.nav_view) as NavigationView
-        navigationView.setNavigationItemSelectedListener(this)
-        navigationView.isVerticalScrollBarEnabled = false
+        mNavigationView = getView(R.id.nav_view) as NavigationView
+        mNavigationView?.setNavigationItemSelectedListener(this)
+        mNavigationView?.isVerticalScrollBarEnabled = false
+        initDrawerMenus()
     }
 
     private fun initDrawerMenus(){
         mDrawerMenuMap.clear()
         DrawerMenu.values().forEach {
-            val resId = loadResourceId(baseContext, "id", "nav_menu_".plus(it.ordinal))
+            val index = it.ordinal
+            val resId = loadResourceId(baseContext, "id", "nav_menu_".plus(index))
             mDrawerMenuMap[resId] = it
+            mNavigationView?.menu?.findItem(resId)?.isVisible = it.isActive()
         }
     }
 

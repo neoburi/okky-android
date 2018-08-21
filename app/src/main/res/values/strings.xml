@@ -49,15 +49,6 @@
     <string name="navi_facebook">Facebook</string>
     <string name="navi_source">Source</string>
 
-    <array name="navi_drawer">
-        <item>Q&amp;A</item>
-        <item>Tech Q&amp;A</item>
-        <item>Blockchain Q&amp;A</item>
-        <item>Tech</item>
-        <item>IT News &amp; 정보</item>
-        <item>Tips &amp; 강좌</item>
-    </array>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
