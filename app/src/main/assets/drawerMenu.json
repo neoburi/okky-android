@@ -1,0 +1,171 @@
+[
+  {
+    "menuName" : "Q&A",
+    "menuPath" : "/articles/questions",
+    "activeFlag" : true,
+    "editable" : false,
+    "icon" : "ic_question_answer_black_48dp",
+    "childMenu" : [
+      {
+        "menuName" : "Blockchain Q&A",
+        "menuPath" : "/articles/blockchain-qna",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      },
+      {
+        "menuName" : "Tech Q&A",
+        "menuPath" : "/articles/tech-qna",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      }
+    ]
+  },
+  {
+    "menuName" : "Tech",
+    "menuPath" : "/articles/tech",
+    "activeFlag" : true,
+    "editable" : false,
+    "icon" : "ic_code_black_48dp",
+    "childMenu" : [
+      {
+        "menuName" : "IT News & 정보",
+        "menuPath" : "/articles/news",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      },
+      {
+        "menuName" : "Tips & 강좌",
+        "menuPath" : "/articles/tips",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      }
+    ]
+  },
+  {
+    "menuName" : "커뮤니티",
+    "menuPath" : "/articles/community",
+    "activeFlag" : true,
+    "editable" : false,
+    "icon" : "ic_chat_black_48dp",
+    "childMenu" : [
+      {
+        "menuName" : "공지사항",
+        "menuPath" : "/articles/notice",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      },
+      {
+        "menuName" : "사는얘기",
+        "menuPath" : "/articles/life",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      },
+      {
+        "menuName" : "포럼",
+        "menuPath" : "/articles/forum",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      },
+      {
+        "menuName" : "IT행사",
+        "menuPath" : "/articles/event",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      },
+      {
+        "menuName" : "정기모임/스터디",
+        "menuPath" : "/articles/gathering",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      },
+      {
+        "menuName" : "학원홍보",
+        "menuPath" : "/articles/promote",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      }
+    ]
+  },
+  {
+    "menuName" : "컬럼",
+    "menuPath" : "/articles/columns",
+    "activeFlag" : true,
+    "editable" : false,
+    "icon" : "ic_border_color_black_48dp"
+  },
+  {
+    "menuName" : "Jobs",
+    "menuPath" : "/articles/jobs",
+    "activeFlag" : true,
+    "editable" : false,
+    "icon" : "ic_business_black_48dp",
+    "childMenu" : [
+      {
+        "menuName" : "좋은회사/나쁜회사",
+        "menuPath" : "/articles/evalcom",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      },
+      {
+        "menuName" : "구인",
+        "menuPath" : "/articles/recruit",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      },
+      {
+        "menuName" : "구직",
+        "menuPath" : "/articles/resumes",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      },
+      {
+        "menuName" : "eBrainJobs",
+        "menuPath" : "/user/info/35324",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      },
+      {
+        "menuName" : "구인[정규직]",
+        "menuPath" : "/articles/recruit?filter.jobType=FULLTIME",
+        "activeFlag" : true,
+        "editable" : true,
+        "icon" : ""
+      }
+    ]
+  },
+  {
+    "menuName" : "Contact",
+    "menuPath" : "info@okky.kr",
+    "activeFlag" : true,
+    "editable" : true,
+    "icon" : "ic_contacts_black_48dp"
+  },
+  {
+    "menuName" : "Github Issues",
+    "menuPath" : "https://github.com/okjsp/okky/issues",
+    "activeFlag" : true,
+    "editable" : true,
+    "icon" : "ic_bug_report_black_48dp"
+  },
+  {
+    "menuName" : "Source",
+    "menuPath" : "https://github.com/neoburi/okky-android.git",
+    "activeFlag" : true,
+    "editable" : false,
+    "icon" : "ic_source_black_48dp"
+  }
+]
