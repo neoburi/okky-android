@@ -1,5 +1,6 @@
 package kr.okky.app.android
 
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.ProgressBar
@@ -18,7 +19,9 @@ abstract class BaseActivity : AppCompatActivity(), ViewControl {
     }
 
     fun hideBgLogo(){
-        getView<View>(R.id.ic_loading_bg).visibility = View.GONE
+        Handler().postDelayed({
+            getView<View>(R.id.ic_loading_bg).visibility = View.GONE
+        }, 1000)
     }
 
     fun closeSpinner(id: Int) {
