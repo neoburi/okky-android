@@ -3,6 +3,8 @@ package kr.okky.app.android
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ProgressBar
 import android.widget.Toast
 import kr.okky.app.android.widget.ViewControl
@@ -19,9 +21,20 @@ abstract class BaseActivity : AppCompatActivity(), ViewControl {
     }
 
     fun hideBgLogo(){
-        Handler().postDelayed({
-            getView<View>(R.id.ic_loading_bg).visibility = View.GONE
-        }, 1000)
+        val lg = getView<View>(R.id.ic_loading_bg)
+        if(lg.visibility == View.VISIBLE) {
+            Handler().postDelayed({
+                val ani = AnimationUtils.loadAnimation(baseContext, android.R.anim.fade_out)
+                ani.setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(animation: Animation) {}
+                    override fun onAnimationEnd(animation: Animation) {
+                        lg.visibility = View.GONE
+                    }
+                    override fun onAnimationRepeat(animation: Animation) {}
+                })
+                lg.startAnimation(ani)
+            }, 1000)
+        }
     }
 
     fun closeSpinner(id: Int) {
