@@ -1,7 +1,8 @@
-package kr.okky.app.android.global
+package kr.okky.app.android.utils
 
 import android.util.Log
 import kr.okky.app.android.BuildConfig
+import kr.okky.app.android.global.TAG
 
 object OkkyLog {
 

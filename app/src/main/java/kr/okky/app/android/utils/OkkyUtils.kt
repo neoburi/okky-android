@@ -1,4 +1,4 @@
-package kr.okky.app.android.global
+package kr.okky.app.android.utils
 
 import android.content.Context
 import android.content.res.AssetManager
