@@ -18,12 +18,23 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
+                                      <entry key="clipArt">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="paddingPercent" value="-5" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                       <entry key="clipartAsset">
                                         <value>
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_remove_red_eye_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/toggle/ic_radio_button_unchecked_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -33,11 +44,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="assetType" value="IMAGE" />
                                       <entry key="imageAsset" value="$USER_HOME$/Desktop/xtoz/okky/무제 폴더 2/icon_tool_more_normal.png" />
-                                      <entry key="outputName" value="ic_action_more_disable" />
+                                      <entry key="outputName" value="ic_action_radio_off" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="cccccc" />
+                                      <entry key="themeColor" value="3a8dfa" />
                                     </map>
                                   </option>
                                 </PersistentState>
