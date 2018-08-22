@@ -18,9 +18,7 @@ object Pref {
     }
 
     fun saveStringValue(key: String, value: String): Boolean {
-        val editor = preferences!!.edit()
-        editor.putString(key, value)
-        return editor.commit()
+        return preferences!!.edit().putString(key, value).commit()
     }
 
     fun getStringValue(key: String, defValue: String): String? {
@@ -28,9 +26,7 @@ object Pref {
     }
 
     fun saveIntValue(key: String, value: Int): Boolean {
-        val editor = preferences!!.edit()
-        editor.putInt(key, value)
-        return editor.commit()
+        return preferences!!.edit().putInt(key, value).commit()
     }
 
     fun getIntValue(key: String, def: Int): Int {
@@ -38,9 +34,7 @@ object Pref {
     }
 
     fun saveLongValue(key: String, value: Long): Boolean {
-        val editor = preferences!!.edit()
-        editor.putLong(key, value)
-        return editor.commit()
+        return preferences!!.edit().putLong(key, value).commit()
     }
 
     fun getLongValue(key: String, def: Long): Long {
@@ -48,9 +42,7 @@ object Pref {
     }
 
     fun saveBooleanValue(key: String, value: Boolean): Boolean {
-        val editor = preferences!!.edit()
-        editor.putBoolean(key, value)
-        return editor.commit()
+        return preferences!!.edit().putBoolean(key, value).commit()
     }
 
     fun getBooleanValue(key: String, def: Boolean): Boolean {
