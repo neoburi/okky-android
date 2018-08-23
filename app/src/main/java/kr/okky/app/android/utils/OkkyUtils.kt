@@ -2,16 +2,29 @@ package kr.okky.app.android.utils
 
 import android.content.Context
 import android.content.res.AssetManager
+import kr.okky.app.android.global.DRAWER_MENU_JSON
 import java.io.*
 
 
 object OkkyUtils {
     const val menuFile = "drawerMenu.json"
-
-    fun existDrawerMenuJson(context:Context):Boolean{
-        val file = File(context.cacheDir.absolutePath, menuFile)
-        return file.exists()
+    fun checkDrawerMenuJsonOfPref(context:Context){
+        if(notExistStoredMenuJson()){
+            Pref.saveStringValue(
+                    DRAWER_MENU_JSON,
+                    readMenuJsonFromAssets(context.assets)
+            )
+        }
     }
+
+    fun notExistStoredMenuJson():Boolean
+            = Pref.getStringValue(DRAWER_MENU_JSON, "").isNullOrEmpty()
+
+    fun getDrawerMenuJson():String
+            = Pref.getStringValue(DRAWER_MENU_JSON, "[]")!!
+
+    fun existDrawerMenuJson(context:Context):Boolean
+            = File(context.cacheDir.absolutePath, menuFile).exists()
 
     fun copyDrawerMenuJsonToCacheDir(context:Context):Boolean
             = copyAssetFileToTarget(context, menuFile, File(context.cacheDir.absolutePath, menuFile))

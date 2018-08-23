@@ -16,15 +16,22 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.view.*
 import android.webkit.URLUtil
 import android.webkit.WebView
-import android.widget.Toast
+import android.widget.ImageView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.race604.drawable.wave.WaveDrawable
 import com.squareup.otto.Subscribe
 import kr.okky.app.android.global.*
 import kr.okky.app.android.global.Menu
+import kr.okky.app.android.model.NaviMenu
+import kr.okky.app.android.utils.OkkyUtils
+import kr.okky.app.android.utils.Pref
 import kr.okky.app.android.widget.BottomMenu
 import kr.okky.app.android.widget.OkkyWebView
 import kr.okky.app.android.widget.WebViewWrapper
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
+import java.util.ArrayList
 
 
 class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.PermissionCallbacks,
@@ -36,9 +43,14 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     private var mDrawerMenuMap = HashMap<Int, DrawerMenu>()
     private var mShowKeyboard:Boolean = false
     private var mNavigationView:NavigationView? = null
+    private var mDrawerMenuList = ArrayList<NaviMenu>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Pref.init(this)
+        OkkyUtils.checkDrawerMenuJsonOfPref(baseContext)
+
         setContentView(R.layout.activity_main)
         findViews()
         initViews()
@@ -51,12 +63,18 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     }
 
     override fun initViews() {
-        mWebWrapper = WebViewWrapper(MainActivity@ this)
-        mWebWrapper?.initWebView(getView(R.id.web_view))
-        mWebWrapper?.loadUrl(getUrl())
+        getView<ImageView>(R.id.okky_loading).setImageDrawable(
+                WaveDrawable(this, R.drawable.img_bg_okky_logo).apply {
+                    isIndeterminate = true
+                }
+        )
 
-        registerForContextMenu(mWebWrapper?.mWebView)//register context menu for long click download
+        mWebWrapper = WebViewWrapper(this).apply {
+            initWebView(getView(R.id.web_view))
+            loadUrl(getUrl())
+        }
 
+        registerForContextMenu(mWebWrapper?.mWebView)
 
         val drawer = getView(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
@@ -67,10 +85,39 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         mNavigationView = getView(R.id.nav_view) as NavigationView
         mNavigationView?.setNavigationItemSelectedListener(this)
         mNavigationView?.isVerticalScrollBarEnabled = false
-        initDrawerMenus()
+        //initDrawerMenus()
+        loadDrawerMenu()
+    }
+
+    private fun loadDrawerMenu(){
+        mDrawerMenuList.clear()
+        val jsonStr = OkkyUtils.getDrawerMenuJson()
+        val listType = object : TypeToken<ArrayList<NaviMenu>>() {}.type
+        val menus = Gson().fromJson<List<NaviMenu>>(jsonStr, listType)
+        val drawerMn = mNavigationView?.menu
+        var itemId = 0
+        var order = 0
+        menus.forEachIndexed{index, it->
+            if(it.isActive) {
+                mDrawerMenuList.add(it)
+                val menuItem: MenuItem? = drawerMn?.add(index, itemId++, order++, it.menuName)
+                val iconResId = loadResourceId(baseContext, "drawable", it.icon!!)
+                menuItem?.icon = resources.getDrawable(iconResId)
+
+                it.childMenu?.forEach {
+                    if(it.isActive) {
+                        mDrawerMenuList.add(it)
+                        drawerMn?.add(index, itemId++, order++, it.menuName)
+                    }
+                }
+            }
+        }
     }
 
     private fun initDrawerMenus(){
+
+        var mn = mNavigationView?.menu
+
         mDrawerMenuMap.clear()
         DrawerMenu.values().forEach {
             val index = it.ordinal
@@ -233,23 +280,30 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         toggleDrawer()
-        val menu = mDrawerMenuMap[item.itemId]
-
-        when(menu){
-            DrawerMenu.BUG_REPORT ->{
-                loadUrl(menu.path())
+        val menu = mDrawerMenuList[item.itemId]
+        val path = menu.menuPath
+        when{
+            path?.startsWith("/articles")!! ->{
+                loadUrl(getUrl().plus(path))
             }
-            DrawerMenu.SOURCE ->{
-                loadUrl(menu.path())
+            path.startsWith("/users") ->{
+                loadUrl(getUrl().plus(path))
             }
-            DrawerMenu.CONTACT ->{
-                mWebWrapper?.launchEmailApp(menu.path())
+            path.startsWith("http") ->{
+                loadUrl(path)
             }
-            else ->{
-                loadUrl(getUrl().plus(menu?.path()))
+            path.startsWith("settings://") ->{
+                openSettings()
+            }
+            path.startsWith("info@") ->{
+                mWebWrapper?.launchEmailApp(path)
             }
         }
         return true
+    }
+
+    private fun openSettings(){
+
     }
 
     private fun toggleDrawer(){

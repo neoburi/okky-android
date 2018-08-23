@@ -162,10 +162,10 @@
     "icon" : "ic_bug_report_black_48dp"
   },
   {
-    "menuName" : "Source",
-    "menuPath" : "https://github.com/neoburi/okky-android.git",
+    "menuName" : "Settings",
+    "menuPath" : "settings://",
     "active" : true,
     "editable" : false,
-    "icon" : "ic_source_black_48dp"
+    "icon" : "ic_settings_black_48dp"
   }
 ]
