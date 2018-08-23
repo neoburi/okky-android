@@ -17,8 +17,6 @@ import android.view.*
 import android.webkit.URLUtil
 import android.webkit.WebView
 import android.widget.ImageView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.race604.drawable.wave.WaveDrawable
 import com.squareup.otto.Subscribe
 import kr.okky.app.android.R
@@ -92,9 +90,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
 
     private fun loadDrawerMenu(){
 
-        val jsonStr = OkkyUtils.getDrawerMenuJson()
-        val listType = object : TypeToken<ArrayList<NaviMenu>>() {}.type
-        val menus = Gson().fromJson<List<NaviMenu>>(jsonStr, listType)
+        val menus = OkkyUtils.createNavigationDrawerMenu()
         val drawerMn = mNavigationView?.menu
 
         mDrawerMenuList.forEachIndexed{ idx, it ->
@@ -211,6 +207,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         when(evt.event){
             BusEvent.Evt.BOTTOM_HISTORY -> controlBottomMenuHistory()
             BusEvent.Evt.BOTTOM_DISABLE -> disableBottomMenus()
+            BusEvent.Evt.DRAWER_RELOAD -> loadDrawerMenu()
         }
     }
 
@@ -310,7 +307,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     }
 
     private fun openSettings(){
-
+        startActivity(Intent(baseContext, SettingsActivity::class.java))
     }
 
     private fun toggleDrawer(){
