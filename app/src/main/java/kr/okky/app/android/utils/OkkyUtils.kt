@@ -2,8 +2,12 @@ package kr.okky.app.android.utils
 
 import android.content.Context
 import android.content.res.AssetManager
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kr.okky.app.android.global.DRAWER_MENU_JSON
+import kr.okky.app.android.model.NaviMenu
 import java.io.*
+import java.util.ArrayList
 
 
 object OkkyUtils {
@@ -22,6 +26,12 @@ object OkkyUtils {
 
     fun getDrawerMenuJson():String
             = Pref.getStringValue(DRAWER_MENU_JSON, "[]")!!
+
+    fun createNavigationDrawerMenu(): List<NaviMenu>{
+        val jsonStr = OkkyUtils.getDrawerMenuJson()
+        val listType = object : TypeToken<ArrayList<NaviMenu>>() {}.type
+        return Gson().fromJson<List<NaviMenu>>(jsonStr, listType)
+    }
 
     fun existDrawerMenuJson(context:Context):Boolean
             = File(context.cacheDir.absolutePath, menuFile).exists()
