@@ -90,7 +90,7 @@
       {
         "menuName" : "학원홍보",
         "menuPath" : "/articles/promote",
-        "active" : true,
+        "active" : false,
         "editable" : true,
         "icon" : ""
       }
@@ -127,14 +127,14 @@
       {
         "menuName" : "구직",
         "menuPath" : "/articles/resumes",
-        "active" : true,
+        "active" : false,
         "editable" : true,
         "icon" : ""
       },
       {
         "menuName" : "eBrainJobs",
         "menuPath" : "/user/info/35324",
-        "active" : true,
+        "active" : false,
         "editable" : true,
         "icon" : ""
       },
@@ -155,7 +155,7 @@
     "icon" : "ic_contacts_black_48dp"
   },
   {
-    "menuName" : "Github Issues",
+    "menuName" : "Bug Report(github)",
     "menuPath" : "https://github.com/okjsp/okky/issues",
     "active" : true,
     "editable" : true,
