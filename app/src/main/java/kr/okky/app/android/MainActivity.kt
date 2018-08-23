@@ -90,11 +90,17 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     }
 
     private fun loadDrawerMenu(){
-        mDrawerMenuList.clear()
+
         val jsonStr = OkkyUtils.getDrawerMenuJson()
         val listType = object : TypeToken<ArrayList<NaviMenu>>() {}.type
         val menus = Gson().fromJson<List<NaviMenu>>(jsonStr, listType)
         val drawerMn = mNavigationView?.menu
+
+        mDrawerMenuList.forEachIndexed{ idx, it ->
+            drawerMn?.removeItem(idx)
+        }
+        mDrawerMenuList.clear()
+
         var itemId = 0
         var order = 0
         menus.forEachIndexed{index, it->
