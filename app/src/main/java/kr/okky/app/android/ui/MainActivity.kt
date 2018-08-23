@@ -1,4 +1,4 @@
-package kr.okky.app.android
+package kr.okky.app.android.ui
 
 import android.app.DownloadManager
 import android.content.Context
@@ -21,6 +21,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.race604.drawable.wave.WaveDrawable
 import com.squareup.otto.Subscribe
+import kr.okky.app.android.R
 import kr.okky.app.android.global.*
 import kr.okky.app.android.global.Menu
 import kr.okky.app.android.model.NaviMenu

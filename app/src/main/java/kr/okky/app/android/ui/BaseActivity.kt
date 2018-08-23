@@ -1,4 +1,4 @@
-package kr.okky.app.android
+package kr.okky.app.android.ui
 
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
@@ -7,6 +7,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ProgressBar
 import android.widget.Toast
+import kr.okky.app.android.R
 import kr.okky.app.android.widget.ViewControl
 
 abstract class BaseActivity : AppCompatActivity(), ViewControl {

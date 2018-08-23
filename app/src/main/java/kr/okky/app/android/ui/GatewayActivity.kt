@@ -1,8 +1,9 @@
-package kr.okky.app.android
+package kr.okky.app.android.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import kr.okky.app.android.R
 
 class GatewayActivity : BaseActivity() {
 

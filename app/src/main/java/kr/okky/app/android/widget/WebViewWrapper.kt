@@ -12,7 +12,7 @@ import android.support.v4.app.ShareCompat
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.webkit.*
-import kr.okky.app.android.BaseActivity
+import kr.okky.app.android.ui.BaseActivity
 import kr.okky.app.android.R
 import kr.okky.app.android.global.*
 import kr.okky.app.android.utils.OkkyLog
