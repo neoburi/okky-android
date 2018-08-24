@@ -9,9 +9,6 @@ import android.support.v4.view.ViewPager
 import android.view.MenuItem
 import android.view.View
 import kr.okky.app.android.R
-import kr.okky.app.android.global.BusEvent
-import kr.okky.app.android.global.BusProvider
-import kr.okky.app.android.ui.frag.SettingsEnvFragment
 import kr.okky.app.android.ui.frag.SettingsInfoFragment
 import kr.okky.app.android.ui.frag.SettingsMenuFragment
 
@@ -65,15 +62,17 @@ class SettingsActivity : BaseActivity() {
     private inner class SettingsAdapter internal constructor() : FragmentPagerAdapter(supportFragmentManager) {
         val titles = arrayOf(
                 getString(R.string.settings_menu),
-                getString(R.string.settings_env),
+                /*getString(R.string.settings_env),*/
                 getString(R.string.settings_info)
         )
-        private val mList = arrayListOf(
-                SettingsMenuFragment(), SettingsEnvFragment(), SettingsInfoFragment()
+        private val mItems = arrayListOf(
+                SettingsMenuFragment(),
+                /*SettingsEnvFragment(),*/
+                SettingsInfoFragment()
         )
 
         override fun getItem(position: Int): Fragment? {
-            return mList[position]
+            return mItems[position]
         }
 
         override fun getCount(): Int {
