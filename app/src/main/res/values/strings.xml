@@ -56,6 +56,26 @@
     <string name="settings_env">Env</string>
     <string name="settings_info">Info</string>
 
+    <string name="txt_app_title">OKKY.EXPLORER</string>
+    <string name="txt_app_version">version %s</string>
+    <string name="txt_app_desc">
+        개발자 커뮤티티 사이트 OKKY(http://okky.kr) Mobile Web을 Android로 패키징한 앱입니다.
+        \n\n이 앱은 OKKY의 공식앱이 아니며 제공되는 모든 컨텐츠의 저작권은 OKKY에 있습니다.
+        \n\n개선사항이나 문의는 아래에 의견 남겨주세요.
+        \nhttps://github.com/neoburi/okky-android/issues
+    </string>
+    <string name="txt_app_thanks">Thanks for&#8230;</string>
+    <string name="txt_app_thanks_desc">
+        EasyPermissions\n
+        https://github.com/googlesamples/easypermissions
+        \n\n
+        WaveLoading\n
+        https://github.com/race604/WaveLoading
+        \n\n
+        Otto - An event bus by Square\n
+        https://github.com/square/otto
+    </string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

@@ -1,13 +1,15 @@
 package kr.okky.app.android.utils
 
 import android.content.Context
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kr.okky.app.android.global.DRAWER_MENU_JSON
 import kr.okky.app.android.model.NaviMenu
 import java.io.*
-import java.util.ArrayList
+import java.util.*
 
 
 object OkkyUtils {
@@ -123,4 +125,13 @@ object OkkyUtils {
 
         return stringBuilder.toString()
     }
+
+    fun getVersionName(context: Context): String =
+            getPackageInfo(context)?.versionName ?: "unknown"
+
+    fun getVersionCode(context: Context, targetPackage: String): Int =
+            getPackageInfo(context)?.versionCode ?: -1
+
+    fun getPackageInfo(context:Context): PackageInfo? =
+            context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_META_DATA)
 }
