@@ -49,7 +49,7 @@
     <string name="navi_facebook">Facebook</string>
     <string name="navi_source">Source</string>
 
-    <string name="settings">Settings</string>
+    <string name="settings">설정</string>
 
     <string name="settings_header_text">게시판 메뉴를 ON/OFF합니다.</string>
     <string name="settings_menu">Menu</string>
