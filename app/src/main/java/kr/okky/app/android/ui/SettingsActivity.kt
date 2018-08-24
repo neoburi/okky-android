@@ -62,11 +62,6 @@ class SettingsActivity : BaseActivity() {
         return false
     }
 
-    override fun finish() {
-        super.finish()
-        BusProvider.post(BusEvent.Evt.DRAWER_RELOAD)
-    }
-
     private inner class SettingsAdapter internal constructor() : FragmentPagerAdapter(supportFragmentManager) {
         val titles = arrayOf(
                 getString(R.string.settings_menu),

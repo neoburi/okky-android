@@ -5,20 +5,23 @@
     "active" : true,
     "editable" : false,
     "icon" : "ic_question_answer_black_48dp",
+    "type" : 0,
     "childMenu" : [
-      {
-        "menuName" : "Blockchain Q&A",
-        "menuPath" : "/articles/blockchain-qna",
-        "active" : true,
-        "editable" : true,
-        "icon" : ""
-      },
       {
         "menuName" : "Tech Q&A",
         "menuPath" : "/articles/tech-qna",
         "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
+      },
+      {
+        "menuName" : "Blockchain Q&A",
+        "menuPath" : "/articles/blockchain-qna",
+        "active" : true,
+        "editable" : true,
+        "icon" : "",
+        "type" : 1
       }
     ]
   },
@@ -28,20 +31,23 @@
     "active" : true,
     "editable" : false,
     "icon" : "ic_code_black_48dp",
+    "type" : 0,
     "childMenu" : [
       {
         "menuName" : "IT News & 정보",
         "menuPath" : "/articles/news",
         "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       },
       {
         "menuName" : "Tips & 강좌",
         "menuPath" : "/articles/tips",
         "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       }
     ]
   },
@@ -51,48 +57,55 @@
     "active" : true,
     "editable" : false,
     "icon" : "ic_chat_black_48dp",
+    "type" : 0,
     "childMenu" : [
       {
         "menuName" : "공지사항",
         "menuPath" : "/articles/notice",
         "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       },
       {
         "menuName" : "사는얘기",
         "menuPath" : "/articles/life",
         "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       },
       {
         "menuName" : "포럼",
         "menuPath" : "/articles/forum",
         "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       },
       {
         "menuName" : "IT행사",
         "menuPath" : "/articles/event",
         "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       },
       {
         "menuName" : "정기모임/스터디",
         "menuPath" : "/articles/gathering",
         "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       },
       {
         "menuName" : "학원홍보",
         "menuPath" : "/articles/promote",
-        "active" : false,
+        "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       }
     ]
   },
@@ -101,7 +114,8 @@
     "menuPath" : "/articles/columns",
     "active" : true,
     "editable" : false,
-    "icon" : "ic_border_color_black_48dp"
+    "icon" : "ic_border_color_black_48dp",
+    "type" : 0
   },
   {
     "menuName" : "Jobs",
@@ -109,41 +123,47 @@
     "active" : true,
     "editable" : false,
     "icon" : "ic_business_black_48dp",
+    "type" : 0,
     "childMenu" : [
       {
         "menuName" : "좋은회사/나쁜회사",
         "menuPath" : "/articles/evalcom",
         "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       },
       {
         "menuName" : "구인",
         "menuPath" : "/articles/recruit",
         "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       },
       {
         "menuName" : "구직",
         "menuPath" : "/articles/resumes",
-        "active" : false,
+        "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       },
       {
         "menuName" : "eBrainJobs",
         "menuPath" : "/user/info/35324",
-        "active" : false,
+        "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       },
       {
         "menuName" : "구인[정규직]",
         "menuPath" : "/articles/recruit?filter.jobType=FULLTIME",
         "active" : true,
         "editable" : true,
-        "icon" : ""
+        "icon" : "",
+        "type" : 1
       }
     ]
   },
@@ -152,20 +172,23 @@
     "menuPath" : "info@okky.kr",
     "active" : true,
     "editable" : true,
-    "icon" : "ic_contacts_black_48dp"
+    "icon" : "ic_contacts_black_48dp",
+    "type" : 0
   },
   {
-    "menuName" : "Bug Report(github)",
+    "menuName" : "Github Issues",
     "menuPath" : "https://github.com/okjsp/okky/issues",
     "active" : true,
     "editable" : true,
-    "icon" : "ic_bug_report_black_48dp"
+    "icon" : "ic_bug_report_black_48dp",
+    "type" : 0
   },
   {
     "menuName" : "Settings",
     "menuPath" : "settings://",
     "active" : true,
     "editable" : false,
-    "icon" : "ic_settings_black_48dp"
+    "icon" : "ic_settings_black_48dp",
+    "type" : 0
   }
 ]

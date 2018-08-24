@@ -13,8 +13,12 @@ class NaviMenu {
     var isEditable: Boolean = false
     @SerializedName("icon")
     var icon: String? = null
+    @SerializedName("type")
+    var type: Int = -1
     @SerializedName("childMenu")
     var childMenu: List<NaviMenu>? = null
+
+    fun isParentRow():Boolean = type == 0
 
     fun hasIcon(): Boolean {
         return !icon!!.isEmpty()

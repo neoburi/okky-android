@@ -115,19 +115,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
                 }
             }
         }
-    }
-
-    private fun initDrawerMenus(){
-
-        var mn = mNavigationView?.menu
-
-        mDrawerMenuMap.clear()
-        DrawerMenu.values().forEach {
-            val index = it.ordinal
-            val resId = loadResourceId(baseContext, "id", "nav_menu_".plus(index))
-            mDrawerMenuMap[resId] = it
-            mNavigationView?.menu?.findItem(resId)?.isVisible = it.isActive()
-        }
+        Pref.saveBooleanValue(DRAWER_MENU_CHANGED, false)
     }
 
     override fun attachEvents() {
@@ -175,9 +163,20 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         return false
     }
 
-    override fun onResume() {
+    private fun checkDrawerMenuFlagChanged(){
+        if(Pref.getBooleanValue(DRAWER_MENU_CHANGED, false)){
+            loadDrawerMenu()
+        }
+    }
+
+    override fun onStart() {
         BusProvider.eventBus.register(MainActivity@this)
+        super.onStart()
+    }
+    override fun onResume() {
+        //BusProvider.eventBus.register(MainActivity@this)
         BusProvider.eventBus.post(BusEvent(BusEvent.Evt.BOTTOM_HISTORY))
+        checkDrawerMenuFlagChanged()
         super.onResume()
     }
 
@@ -185,6 +184,11 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         BusProvider.eventBus.unregister(MainActivity@this)
         super.onPause()
     }
+
+    /*override fun onDestroy() {
+        BusProvider.eventBus.unregister(MainActivity@this)
+        super.onDestroy()
+    }*/
 
     @Subscribe
     fun bottomMenuClick(menu:Menu){
@@ -207,7 +211,6 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         when(evt.event){
             BusEvent.Evt.BOTTOM_HISTORY -> controlBottomMenuHistory()
             BusEvent.Evt.BOTTOM_DISABLE -> disableBottomMenus()
-            BusEvent.Evt.DRAWER_RELOAD -> loadDrawerMenu()
         }
     }
 

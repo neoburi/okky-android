@@ -24,14 +24,15 @@ abstract class BaseFragment : Fragment(), ViewControl {
         throw IllegalStateException("This method must be implemented by subclass.")
     }
 
-    override fun findViews() =
+    override fun findViews() {
         throw IllegalStateException("This method must be implemented by subclass.")
+    }
 
-    override fun attachEvents() =
+    override fun attachEvents() {
         throw IllegalStateException("This method must be implemented by subclass.")
+    }
 
-
-    open fun getViewResourceId():Int{
+    open fun getViewResourceId(): Int {
         throw IllegalStateException("This method must be implemented by subclass.")
     }
 
@@ -39,22 +40,23 @@ abstract class BaseFragment : Fragment(), ViewControl {
         mActivity!!.toast(id)
     }
 
-    override fun performClick(view: View) =
+    override fun performClick(view: View) {
         throw IllegalStateException("This method must be implemented by subclass.")
+    }
 
-
-    override fun setInitialData() =
+    override fun setInitialData() {
         throw IllegalStateException("This method must be implemented by subclass.")
-
+    }
     fun <T : View> getView(viewResourceId: Int): T {
         return mRootView!!.findViewById(viewResourceId)
     }
 
     fun getRootView():View = mRootView!!
 
-    override fun initViews() =
+    override fun initViews() {
         throw IllegalStateException("This method must be implemented by subclass.")
-
-    override fun assignData() =
+    }
+    override fun assignData() {
         throw IllegalStateException("This method must be implemented by subclass.")
+    }
 }

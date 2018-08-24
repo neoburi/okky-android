@@ -18,6 +18,7 @@ enum class Mode{
 
 const val TAG:String = "OKKY"
 const val DRAWER_MENU_JSON = "NAVIGATION_DRAWER_MENU_JSON"
+const val DRAWER_MENU_CHANGED = "DRAWER_MENU_CHANGED"
 
 val MODE: Mode = Mode.SERVICE
 
