@@ -159,12 +159,8 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
         }
 
         override fun onReceivedError(view: WebView, errorCode: Int, description: String, failingUrl: String) {
-            OkkyLog.log("err : $description")
-            if (errorCode == WebViewClient.ERROR_AUTHENTICATION){
-                mActivity.toast(R.string.txt_login_session_not_valid)
-                clearWebView()
-                loadUrl(getUrl())
-            } else if (description.endsWith("ERR_UNKNOWN_URL_SCHEME")) {
+            OkkyLog.log("err : $description, errcode=$errorCode")
+            (errorCode > -1).let {
                 clearWebView()
                 loadUrl(getUrl())
             }
