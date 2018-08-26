@@ -2,6 +2,7 @@ package kr.okky.app.android.widget
 
 import android.annotation.TargetApi
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -12,9 +13,12 @@ import android.support.v4.app.ShareCompat
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.webkit.*
-import kr.okky.app.android.ui.BaseActivity
 import kr.okky.app.android.R
-import kr.okky.app.android.global.*
+import kr.okky.app.android.global.BusEvent
+import kr.okky.app.android.global.BusProvider
+import kr.okky.app.android.global.getLoginUrl
+import kr.okky.app.android.global.getUrl
+import kr.okky.app.android.ui.BaseActivity
 import kr.okky.app.android.utils.OkkyLog
 import java.io.File
 import java.io.IOException
@@ -107,7 +111,12 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                 url!!.startsWith("intent:") -> {
                     //executeApp(url)
                 }
-                url.startsWith("mailto:") -> launchEmailApp(url.replaceFirst("mailto:", ""))
+                url.startsWith("market:") -> {
+                    moveToMarket(url)
+                }
+                url.startsWith("mailto:") -> {
+                    launchEmailApp(url.replaceFirst("mailto:", ""))
+                }
                 //url.contains("facebook.com") -> launchFacebook(url)
                 url.startsWith("http") -> {
                     when {
@@ -122,7 +131,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                         else -> view?.loadUrl(url)
                     }
                     mCurrentUrl = url
-                    return true
+                    /*return true*/
                 }
             }
 
@@ -150,8 +159,12 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
         }
 
         override fun onReceivedError(view: WebView, errorCode: Int, description: String, failingUrl: String) {
+            OkkyLog.log("err : $description")
             if (errorCode == WebViewClient.ERROR_AUTHENTICATION){
                 mActivity.toast(R.string.txt_login_session_not_valid)
+                clearWebView()
+                loadUrl(getUrl())
+            } else if (description.endsWith("ERR_UNKNOWN_URL_SCHEME")) {
                 clearWebView()
                 loadUrl(getUrl())
             }
@@ -324,4 +337,17 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                 .startChooser()
     }
 
+    fun moveToMarket(marketUrl: String?) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        try {
+            intent.data = Uri.parse(marketUrl!!)
+            mActivity.startActivity(intent)
+        } catch (ee: ActivityNotFoundException) {
+            val path = marketUrl?.replace("market://", "")
+            mActivity.startActivity(
+                    Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/$path")))
+        }
+
+    }
 }
