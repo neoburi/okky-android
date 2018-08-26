@@ -33,6 +33,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
     private var mPreviousUrl:String? = null
     private var mCurrentUrl:String? = null
     private var mClearHistories:Boolean = false
+    private val mErrorCodes = arrayOf(WebViewClient.ERROR_AUTHENTICATION, WebViewClient.ERROR_UNSUPPORTED_SCHEME)
 
     fun initWebView(webView:WebView){
         mWebView = webView
@@ -159,8 +160,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
         }
 
         override fun onReceivedError(view: WebView, errorCode: Int, description: String, failingUrl: String) {
-            OkkyLog.log("err : $description, errcode=$errorCode")
-            (errorCode > -1).let {
+            if (mErrorCodes.contains(errorCode)) {
                 clearWebView()
                 loadUrl(getUrl())
             }
