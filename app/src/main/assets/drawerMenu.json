@@ -184,7 +184,7 @@
     "type" : 0
   },
   {
-    "menuName" : "Settings",
+    "menuName": "설정",
     "menuPath" : "settings://",
     "active" : true,
     "editable" : false,
