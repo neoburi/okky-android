@@ -147,11 +147,8 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         }
     }
 
-    override fun onStart() {
-        BusProvider.eventBus.register(MainActivity@this)
-        super.onStart()
-    }
     override fun onResume() {
+        BusProvider.eventBus.register(MainActivity@ this)
         BusProvider.eventBus.post(BusEvent(BusEvent.Evt.BOTTOM_HISTORY))
         checkDrawerMenuFlagChanged()
         super.onResume()
