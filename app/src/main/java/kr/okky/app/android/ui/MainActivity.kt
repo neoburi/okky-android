@@ -46,7 +46,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Pref.init(this)
+        //Pref.init(this)
         OkkyUtils.checkDrawerMenuJsonOfPref(baseContext)
 
         setContentView(R.layout.activity_main)
