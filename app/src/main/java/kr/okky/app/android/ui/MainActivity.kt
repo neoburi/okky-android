@@ -199,14 +199,21 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     }
 
     private fun checkCanGoBack() {
-        when(mWebWrapper?.mWebView!!.canGoBack()){
+        when (isDrawerStateIsOpen()) {
             true -> {
-                when(mWebWrapper!!.isMainPage()){
-                    true -> finishNotify()
-                    false -> mWebWrapper?.mWebView!!.goBack()
+                toggleDrawer()
+            }
+            else -> {
+                when (mWebWrapper?.mWebView!!.canGoBack()) {
+                    true -> {
+                        when (mWebWrapper!!.isMainPage()) {
+                            true -> finishNotify()
+                            false -> mWebWrapper?.mWebView!!.goBack()
+                        }
+                    }
+                    false -> finishNotify()
                 }
             }
-            false -> finishNotify()
         }
     }
 
@@ -266,12 +273,16 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     }
 
     fun toggleDrawer() {
-        val drawer = getView(R.id.drawer_layout) as DrawerLayout
+        val drawer = getDrawerLayout()
         when(drawer.isDrawerOpen(Gravity.START)){
             true -> drawer.closeDrawer(Gravity.START)
             false -> drawer.openDrawer(Gravity.START)
         }
     }
+
+    fun isDrawerStateIsOpen(): Boolean = getDrawerLayout().isDrawerOpen(Gravity.START)
+
+    fun getDrawerLayout(): DrawerLayout = getView(R.id.drawer_layout)
 
     override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
