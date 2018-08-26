@@ -1,5 +1,8 @@
 package kr.okky.app.android.global
 
+@Deprecated(
+        message = "discard 2018.08.26"
+)
 enum class DrawerMenu constructor(
         private val path:String, private val menuName:String, private val active:Boolean) {
     QNA("/articles/questions", "Q&A", true),

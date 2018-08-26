@@ -39,7 +39,6 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     private var mFinishCondition: Boolean = false
     private val mExitHandler = Handler()
     private var mBottomBar:BottomMenu? = null
-    private var mDrawerMenuMap = HashMap<Int, DrawerMenu>()
     private var mShowKeyboard:Boolean = false
     private var mNavigationView:NavigationView? = null
     private var mDrawerMenuList = ArrayList<NaviMenu>()
