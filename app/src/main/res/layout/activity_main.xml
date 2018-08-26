@@ -91,7 +91,10 @@
         android:layout_gravity="start"
         android:background="@color/color_56646c"
         android:fitsSystemWindows="true"
+        android:clickable="true"
+        android:focusable="true"
         android:scrollbars="none"
+        app:itemBackground="@drawable/bg_navi_item"
         android:theme="@style/NavigationTheme"
         app:headerLayout="@layout/drawer_header"/>
 
