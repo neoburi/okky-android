@@ -13,7 +13,10 @@ import android.support.design.widget.NavigationView
 import android.support.v4.app.ShareCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.view.*
+import android.view.ContextMenu
+import android.view.Gravity
+import android.view.KeyEvent
+import android.view.View
 import android.webkit.URLUtil
 import android.webkit.WebView
 import android.widget.ImageView
@@ -21,27 +24,24 @@ import com.race604.drawable.wave.WaveDrawable
 import com.squareup.otto.Subscribe
 import kr.okky.app.android.R
 import kr.okky.app.android.global.*
-import kr.okky.app.android.global.Menu
-import kr.okky.app.android.model.NaviMenu
 import kr.okky.app.android.utils.OkkyUtils
 import kr.okky.app.android.utils.Pref
 import kr.okky.app.android.widget.BottomMenu
+import kr.okky.app.android.widget.OkkyNaviDrawerMenu
 import kr.okky.app.android.widget.OkkyWebView
 import kr.okky.app.android.widget.WebViewWrapper
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
-import java.util.ArrayList
 
 
 class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.PermissionCallbacks,
-        OkkyWebView.OnScrollChangeListener, NavigationView.OnNavigationItemSelectedListener {
+        OkkyWebView.OnScrollChangeListener {
     private var mWebWrapper: WebViewWrapper? = null
     private var mFinishCondition: Boolean = false
     private val mExitHandler = Handler()
     private var mBottomBar:BottomMenu? = null
     private var mShowKeyboard:Boolean = false
-    private var mNavigationView:NavigationView? = null
-    private var mDrawerMenuList = ArrayList<NaviMenu>()
+    private var mOkkyNavi: OkkyNaviDrawerMenu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,41 +80,8 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
-        mNavigationView = getView(R.id.nav_view) as NavigationView
-        mNavigationView?.setNavigationItemSelectedListener(this)
-        mNavigationView?.isVerticalScrollBarEnabled = false
-        //initDrawerMenus()
-        loadDrawerMenu()
-    }
-
-    private fun loadDrawerMenu(){
-
-        val menus = OkkyUtils.createNavigationDrawerMenu()
-        val drawerMn = mNavigationView?.menu
-
-        mDrawerMenuList.forEachIndexed{ idx, it ->
-            drawerMn?.removeItem(idx)
-        }
-        mDrawerMenuList.clear()
-
-        var itemId = 0
-        var order = 0
-        menus.forEachIndexed{index, it->
-            if(it.isActive) {
-                mDrawerMenuList.add(it)
-                val menuItem: MenuItem? = drawerMn?.add(index, itemId++, order++, it.menuName)
-                val iconResId = loadResourceId(baseContext, "drawable", it.icon!!)
-                menuItem?.icon = resources.getDrawable(iconResId)
-
-                it.childMenu?.forEach {
-                    if(it.isActive) {
-                        mDrawerMenuList.add(it)
-                        drawerMn?.add(index, itemId++, order++, it.menuName)
-                    }
-                }
-            }
-        }
-        Pref.saveBooleanValue(DRAWER_MENU_CHANGED, false)
+        mOkkyNavi = OkkyNaviDrawerMenu(this, getView(R.id.nav_view) as NavigationView)
+        mOkkyNavi?.loadDrawerMenu()
     }
 
     override fun attachEvents() {
@@ -176,7 +143,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
 
     private fun checkDrawerMenuFlagChanged(){
         if(Pref.getBooleanValue(DRAWER_MENU_CHANGED, false)){
-            loadDrawerMenu()
+            mOkkyNavi?.loadDrawerMenu()
         }
     }
 
@@ -185,7 +152,6 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         super.onStart()
     }
     override fun onResume() {
-        //BusProvider.eventBus.register(MainActivity@this)
         BusProvider.eventBus.post(BusEvent(BusEvent.Evt.BOTTOM_HISTORY))
         checkDrawerMenuFlagChanged()
         super.onResume()
@@ -195,11 +161,6 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         BusProvider.eventBus.unregister(MainActivity@this)
         super.onPause()
     }
-
-    /*override fun onDestroy() {
-        BusProvider.eventBus.unregister(MainActivity@this)
-        super.onDestroy()
-    }*/
 
     @Subscribe
     fun bottomMenuClick(menu:Menu){
@@ -296,35 +257,15 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         mWebWrapper?.loadUrl(url)
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        toggleDrawer()
-        val menu = mDrawerMenuList[item.itemId]
-        val path = menu.menuPath
-        when{
-            path?.startsWith("/articles")!! ->{
-                loadUrl(getUrl().plus(path))
-            }
-            path.startsWith("/users") ->{
-                loadUrl(getUrl().plus(path))
-            }
-            path.startsWith("http") ->{
-                loadUrl(path)
-            }
-            path.startsWith("settings://") ->{
-                openSettings()
-            }
-            path.startsWith("info@") ->{
-                mWebWrapper?.launchEmailApp(path)
-            }
-        }
-        return true
+    fun launchEmailApp(path: String) {
+        mWebWrapper?.launchEmailApp(path)
     }
 
-    private fun openSettings(){
+    fun openSettings() {
         startActivity(Intent(baseContext, SettingsActivity::class.java))
     }
 
-    private fun toggleDrawer(){
+    fun toggleDrawer() {
         val drawer = getView(R.id.drawer_layout) as DrawerLayout
         when(drawer.isDrawerOpen(Gravity.START)){
             true -> drawer.closeDrawer(Gravity.START)
