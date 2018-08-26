@@ -141,8 +141,19 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
 
     override fun onScrollChange(v: WebView, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
         val ydiff = scrollY - oldScrollY
+        val height = Math.floor(((v.contentHeight * v.scale).toDouble())).toInt()
+        val webViewHeight = v.measuredHeight
         when{
-            ydiff > 20 -> mBottomBar?.visibility = View.GONE
+            ydiff > 0 -> {
+                when{
+                    (v.scrollY + webViewHeight >= height) -> {//scroll bottom reached
+                        mBottomBar?.visibility = View.VISIBLE
+                    }
+                    ydiff > 20 -> {
+                        mBottomBar?.visibility = View.GONE
+                    }
+                }
+            }
             ydiff < -20 -> {
                 if(!mShowKeyboard) {
                     mBottomBar?.visibility = View.VISIBLE

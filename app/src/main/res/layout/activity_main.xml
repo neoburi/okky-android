@@ -17,8 +17,7 @@
             android:id="@+id/web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="0dp"
-            android:padding="0dp"
+            android:layout_marginBottom="@dimen/dp_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +70,7 @@
         <kr.okky.app.android.widget.BottomMenu
             android:id="@+id/bottom_navi"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_48"
+            android:layout_height="@dimen/dp_40"
             android:layout_alignParentBottom="true"
             android:background="@drawable/bottom_menu_box"
             android:orientation="horizontal"
