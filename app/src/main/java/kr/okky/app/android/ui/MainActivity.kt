@@ -125,6 +125,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         wv.onScrollChangeListener = MainActivity@this
 
         val layout = getView<ConstraintLayout>(R.id.box_main)//for soft keyboard show/hide
+//        val layout:ConstraintLayout? = null //crashlytics force test
         layout.viewTreeObserver!!.addOnGlobalLayoutListener {
             val r = Rect()
             layout.getWindowVisibleDisplayFrame(r)

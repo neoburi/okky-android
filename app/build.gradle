@@ -6,6 +6,7 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 27
@@ -13,8 +14,8 @@ android {
         applicationId "kr.okky.app.android"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 100001
-        versionName "1.0.1"
+        versionCode 100002
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -60,6 +61,7 @@ dependencies {
 
     implementation 'com.android.support:support-v13:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -69,4 +71,8 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.race604.waveloading:library:1.1.1'
+
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
 }
+
+apply plugin: 'com.google.gms.google-services'
