@@ -51,11 +51,12 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
         }
 
         mWebView?.settings?.run {
-            //userAgentString = "okky.android"
             setSupportZoom(true)
+            builtInZoomControls = true
+            displayZoomControls = false
 
-            databaseEnabled = true
-            domStorageEnabled = true
+            /*databaseEnabled = true
+            domStorageEnabled = true*/
             setSupportMultipleWindows(false)
             mediaPlaybackRequiresUserGesture = true
 
@@ -68,7 +69,6 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
             javaScriptEnabled = true
             setAppCacheEnabled(false)
 
-            domStorageEnabled = true
             allowFileAccessFromFileURLs = true
             allowUniversalAccessFromFileURLs = true
             loadWithOverviewMode = true
