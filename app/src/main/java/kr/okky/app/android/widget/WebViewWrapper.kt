@@ -161,6 +161,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                     mClearHistories = false
                 }
             }
+            setPaddingBottom()
         }
 
         @TargetApi(Build.VERSION_CODES.M)
@@ -179,6 +180,10 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
 //            OkkyLog.log("request.getRequestHeaders()::"+request?.requestHeaders)
 //            return null
 //        }
+    }
+
+    fun setPaddingBottom() {
+        mWebView?.post { mWebView?.loadUrl("javascript:(function(){ document.body.style.paddingBottom = '20px'})();") }
     }
 
     fun clearWebView(){
