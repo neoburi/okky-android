@@ -13,6 +13,7 @@ import android.support.v4.app.ShareCompat
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.webkit.*
+import kr.okky.app.android.BuildConfig
 import kr.okky.app.android.R
 import kr.okky.app.android.global.BusEvent
 import kr.okky.app.android.global.BusProvider
@@ -39,15 +40,16 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
     private val header = HashMap<String, String>()
 
     init {
-        header["Okky.App"] = "${mActivity.packageName}, v${OkkyUtils.getVersionName(mActivity)}"
+        header["Okky.App"] = "${mActivity.packageName}, v${OkkyUtils.getVersionName(mActivity.baseContext)}"
     }
+
     fun initWebView(webView:WebView){
         mWebView = webView
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mWebView?.settings?.safeBrowsingEnabled = false
         }
-        OkkyLog.log("user agent=${mWebView?.settings?.userAgentString}")
+
         mWebView?.settings?.run {
             //userAgentString = "okky.android"
             setSupportZoom(true)
@@ -81,6 +83,8 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
             it.webChromeClient = OkkyChromeClient()
             it.addJavascriptInterface(OkkyBridge(), "okkyBridge")
         }
+
+        WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
 
         CookieManager.getInstance().setAcceptCookie(true)
 
