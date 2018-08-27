@@ -161,7 +161,6 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                     mClearHistories = false
                 }
             }
-            setPaddingBottom()
         }
 
         @TargetApi(Build.VERSION_CODES.M)
@@ -176,10 +175,6 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
             }
         }
 
-//        override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse? {
-//            OkkyLog.log("request.getRequestHeaders()::"+request?.requestHeaders)
-//            return null
-//        }
     }
 
     fun setPaddingBottom() {
