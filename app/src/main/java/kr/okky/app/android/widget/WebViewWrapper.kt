@@ -20,10 +20,12 @@ import kr.okky.app.android.global.getLoginUrl
 import kr.okky.app.android.global.getUrl
 import kr.okky.app.android.ui.BaseActivity
 import kr.okky.app.android.utils.OkkyLog
+import kr.okky.app.android.utils.OkkyUtils
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class WebViewWrapper constructor(val mActivity: BaseActivity){
@@ -34,14 +36,18 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
     private var mCurrentUrl:String? = null
     private var mClearHistories:Boolean = false
     private val mErrorCodes = arrayOf(WebViewClient.ERROR_AUTHENTICATION, WebViewClient.ERROR_UNSUPPORTED_SCHEME)
+    private val header = HashMap<String, String>()
 
+    init {
+        header["Okky.App"] = "${mActivity.packageName}, v${OkkyUtils.getVersionName(mActivity)}"
+    }
     fun initWebView(webView:WebView){
         mWebView = webView
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mWebView?.settings?.safeBrowsingEnabled = false
         }
-
+        OkkyLog.log("user agent=${mWebView?.settings?.userAgentString}")
         mWebView?.settings?.run {
             //userAgentString = "okky.android"
             setSupportZoom(true)
@@ -81,7 +87,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
     }
 
     fun loadUrl(url: String) {
-        mWebView?.loadUrl(url)
+        mWebView?.loadUrl(url, header)
     }
 
     fun isMainPage():Boolean{
@@ -118,29 +124,28 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                 url.startsWith("mailto:") -> {
                     launchEmailApp(url.replaceFirst("mailto:", ""))
                 }
-                //url.contains("facebook.com") -> launchFacebook(url)
                 url.startsWith("http") -> {
+                    var loadTarget: String = url
                     when {
                         url.contains("/login/authAjax") -> {
                             setupUrl()
-                            view?.loadUrl(getLoginUrl(mPreviousUrl))
+                            loadTarget = getLoginUrl(mPreviousUrl)
                         }
                         url.contains("/login/authfail?ajax=true") -> {
-                            view?.loadUrl(getLoginUrl("/"))//if login fail, redirect to main(/).
+                            loadTarget = getLoginUrl(getLoginUrl("/"))
                             mActivity.toast(R.string.txt_invalid_id_or_pwd)
                         }
-                        else -> view?.loadUrl(url)
                     }
+                    view?.loadUrl(loadTarget, header)
                     mCurrentUrl = url
                     /*return true*/
                 }
             }
-
             return false
         }
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-            val cookies = CookieManager.getInstance().getCookie(url)
+            //val cookies = CookieManager.getInstance().getCookie(url)
             //OkkyLog.log("url onPageStarted:$url , cookies:$cookies")
             BusProvider.eventBus.post(BusEvent(BusEvent.Evt.BOTTOM_DISABLE))
         }
@@ -165,6 +170,11 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                 loadUrl(getUrl())
             }
         }
+
+//        override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse? {
+//            OkkyLog.log("request.getRequestHeaders()::"+request?.requestHeaders)
+//            return null
+//        }
     }
 
     fun clearWebView(){
