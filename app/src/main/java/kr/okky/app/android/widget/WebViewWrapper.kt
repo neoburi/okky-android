@@ -118,6 +118,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
         }
 
         private fun loadOverrideUrl(view:WebView?, url:String?):Boolean{
+            OkkyLog.log("load url=$url")
             when {
                 url!!.startsWith("intent:") -> {
                     //executeApp(url)
@@ -131,6 +132,10 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                 url.startsWith("http") -> {
                     var loadTarget: String = url
                     when {
+                        url.contains("/oauth/google") -> {
+                            mActivity.toast(R.string.txt_not_support)
+                            return true
+                        }
                         url.contains("/login/authAjax") -> {
                             setupUrl()
                             loadTarget = getLoginUrl(mPreviousUrl)
