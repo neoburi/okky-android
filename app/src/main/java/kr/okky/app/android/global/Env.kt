@@ -67,6 +67,8 @@ val timeStamp = SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA).format(Date())!
 
 fun createFilenameWithTimestamp(prefix: String, suffix: String): String = prefix.plus(timeStamp).plus(suffix)
 
+fun createFilenameWithTimestamp(prefix: String, suffix: String, ext: String): String = createFilenameWithTimestamp(prefix, suffix).plus(ext)
+
 enum class FileExt constructor(private val ext: String) {
     JPEG(".JPG"),
     PNG(".PNG"),
