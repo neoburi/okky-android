@@ -1,9 +1,18 @@
 package kr.okky.app.android.global
 
 import android.content.Context
-import android.content.pm.PackageManager
 
+enum class UrlCompareValue constructor(private val path: String) {
+    INTENT("intent:"),
+    MARKET("market:"),
+    EMAIL("mailto:"),
+    HTTP("http"),
+    GOOGLE_OAUTH("/oauth/google"),
+    LOGIN("/login/authAjax"),
+    LOGIN_FAIL("/login/authfail?ajax=true");
 
+    fun value(): String = path
+}
 
 enum class Url constructor(private val url: String) {
     DEV("http://192.168.25.49:8080/okky"),

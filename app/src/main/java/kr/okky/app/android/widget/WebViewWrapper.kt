@@ -15,10 +15,7 @@ import android.view.View
 import android.webkit.*
 import kr.okky.app.android.BuildConfig
 import kr.okky.app.android.R
-import kr.okky.app.android.global.BusEvent
-import kr.okky.app.android.global.BusProvider
-import kr.okky.app.android.global.getLoginUrl
-import kr.okky.app.android.global.getUrl
+import kr.okky.app.android.global.*
 import kr.okky.app.android.ui.BaseActivity
 import kr.okky.app.android.utils.OkkyLog
 import kr.okky.app.android.utils.OkkyUtils
@@ -120,27 +117,27 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
         private fun loadOverrideUrl(view:WebView?, url:String?):Boolean{
             OkkyLog.log("load url=$url")
             when {
-                url!!.startsWith("intent:") -> {
+                url!!.startsWith(UrlCompareValue.INTENT.value()) -> {
                     //executeApp(url)
                 }
-                url.startsWith("market:") -> {
+                url.startsWith(UrlCompareValue.MARKET.value()) -> {
                     moveToMarket(url)
                 }
-                url.startsWith("mailto:") -> {
-                    launchEmailApp(url.replaceFirst("mailto:", ""))
+                url.startsWith(UrlCompareValue.EMAIL.value()) -> {
+                    launchEmailApp(url.replaceFirst(UrlCompareValue.EMAIL.value(), ""))
                 }
-                url.startsWith("http") -> {
+                url.startsWith(UrlCompareValue.HTTP.value()) -> {
                     var loadTarget: String = url
                     when {
-                        url.contains("/oauth/google") -> {
+                        url.contains(UrlCompareValue.GOOGLE_OAUTH.value()) -> {
                             mActivity.toast(R.string.txt_not_support)
                             return true
                         }
-                        url.contains("/login/authAjax") -> {
+                        url.contains(UrlCompareValue.LOGIN.value()) -> {
                             setupUrl()
                             loadTarget = getLoginUrl(mPreviousUrl)
                         }
-                        url.contains("/login/authfail?ajax=true") -> {
+                        url.contains(UrlCompareValue.LOGIN_FAIL.value()) -> {
                             loadTarget = getLoginUrl(getLoginUrl("/"))
                             mActivity.toast(R.string.txt_invalid_id_or_pwd)
                         }
