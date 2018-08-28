@@ -299,13 +299,10 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
 
     @Throws(IOException::class)
     private fun createImageFile(): File {
-        val timeStamp = SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA).format(Date())
-        val imageFileName = "JPEG_" + timeStamp + "_"
-        val storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
-                imageFileName,
-                ".jpg",
-                storageDir
+                createFilenameWithTimestamp("JPEG_", "_"),
+                FileExt.JPEG.value(),
+                getPublicDirectory(Environment.DIRECTORY_PICTURES)
         )
     }
 
@@ -334,7 +331,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
 
     fun shareThisPage(){
         ShareCompat.IntentBuilder.from(mActivity)
-                .setType("text/plain")
+                .setType(MimeType.TEXT_PLAIN.value())
                 .setChooserTitle(R.string.txt_selection)
                 .setText(mWebView?.url)
                 .setSubject(mActivity.getString(R.string.app_name))
@@ -343,7 +340,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
 
     fun launchEmailApp(emailTo:String?){
         ShareCompat.IntentBuilder.from(mActivity)
-                .setType("text/html")
+                .setType(MimeType.TEXT_HTML.value())
                 .setChooserTitle(R.string.txt_selection)
                 .addEmailTo(emailTo)
                 .startChooser()
@@ -355,7 +352,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
             intent.data = Uri.parse(marketUrl!!)
             mActivity.startActivity(intent)
         } catch (ee: ActivityNotFoundException) {
-            val path = marketUrl?.replace("market://", "")
+            val path = marketUrl?.replace(UrlCompareValue.MARKET.value(), "")
             mActivity.startActivity(
                     Intent(Intent.ACTION_VIEW,
                             Uri.parse("https://play.google.com/store/apps/$path")))

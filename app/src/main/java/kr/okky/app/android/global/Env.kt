@@ -1,10 +1,14 @@
 package kr.okky.app.android.global
 
 import android.content.Context
+import android.os.Environment
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 enum class UrlCompareValue constructor(private val path: String) {
     INTENT("intent:"),
-    MARKET("market:"),
+    MARKET("market://"),
     EMAIL("mailto:"),
     HTTP("http"),
     GOOGLE_OAUTH("/oauth/google"),
@@ -55,4 +59,27 @@ fun loadResourceId(context: Context, resName: String, resIdName: String): Int {
     return if (resName.isEmpty() || resIdName.isEmpty()) {
         -1
     } else context.resources.getIdentifier(resIdName, resName, context.packageName)
+}
+
+fun getPublicDirectory(publicDir: String): File = Environment.getExternalStoragePublicDirectory(publicDir)
+
+val timeStamp = SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA).format(Date())!!
+
+fun createFilenameWithTimestamp(prefix: String, suffix: String): String = prefix.plus(timeStamp).plus(suffix)
+
+enum class FileExt constructor(private val ext: String) {
+    JPEG(".JPG"),
+    PNG(".PNG"),
+    AVI(".AVI"),
+    MP3(".MP3"),
+    MP4(".MP4");
+
+    fun value(): String = ext
+}
+
+enum class MimeType constructor(private val type: String) {
+    TEXT_PLAIN(""),
+    TEXT_HTML("");
+
+    fun value(): String = type
 }
