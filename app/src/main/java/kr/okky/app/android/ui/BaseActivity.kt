@@ -13,7 +13,7 @@ import kr.okky.app.android.widget.ViewControl
 abstract class BaseActivity : AppCompatActivity(), ViewControl {
     var mSpinner: ProgressBar? = null
 
-    fun <T : View> getView(viewResourceId: Int): T {
+    override fun <T : View> getView(viewResourceId: Int): T {
         return findViewById(viewResourceId)
     }
 

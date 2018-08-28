@@ -15,4 +15,6 @@ interface ViewControl {
     fun setInitialData()
 
     fun assignData()
+
+    fun <T : View> getView(viewResourceId: Int): T
 }
