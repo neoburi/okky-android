@@ -48,6 +48,11 @@ fun getLoginUrl(url:String?):String
 fun getLoginRedirectPath(url:String):String
         = url.replace("^(http|https)://okky.kr".toRegex(), "")
 
+fun isHome(url: String?): Boolean = url?.matches("^(http?).*(okky.kr(/?))$".toRegex())!!
+
+fun isList(url: String?): Boolean = !isHome(url).and(url?.matches("^(http?).*(\\D)$".toRegex())!!)
+
+fun isArticleOpen(url: String?): Boolean = url?.matches("^(http?).*(\\d)$".toRegex())!!
 
 val PERMISSIONS = arrayOf(
         "android.permission.WRITE_EXTERNAL_STORAGE",
