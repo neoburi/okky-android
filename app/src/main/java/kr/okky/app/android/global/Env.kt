@@ -85,8 +85,15 @@ enum class FileExt constructor(private val ext: String) {
 }
 
 enum class MimeType constructor(private val type: String) {
-    TEXT_PLAIN(""),
-    TEXT_HTML("");
+    TEXT_PLAIN("text/plain"),
+    TEXT_HTML("text/html"),
+    IMAGE_PNG("image/png"),
+    IMAGE_JPG("image/jpg"),
+    IMAGE_JPEG("image/jpeg"),
+    PDF("application/pdf"),
+    AVI("video/x-msvideo"),
+    MPEG("video/mpeg"),
+    ZIP("application/zip");
 
     fun value(): String = type
 }
