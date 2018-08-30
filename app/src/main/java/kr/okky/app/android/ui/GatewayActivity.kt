@@ -16,7 +16,6 @@ class GatewayActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gateway)
-        setCrashlyticsDebugMode()
         /*crashlyticsTest()*/
         Handler().postDelayed({
             startActivity(Intent(baseContext, MainActivity::class.java))
@@ -28,13 +27,5 @@ class GatewayActivity : BaseActivity() {
         getView<Button>(R.id.btn_test).setOnClickListener {
             Crashlytics.getInstance().crash() // Force a crash
         }
-    }
-
-    private fun setCrashlyticsDebugMode(){
-        val fabric = Fabric.Builder(this)
-                .kits(Crashlytics())
-                .debuggable(MODE == Mode.DEV)           // Enables Crashlytics debugger
-                .build()
-        Fabric.with(fabric)
     }
 }

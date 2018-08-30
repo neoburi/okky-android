@@ -20,8 +20,10 @@ import android.view.View
 import android.webkit.URLUtil
 import android.webkit.WebView
 import android.widget.ImageView
+import com.crashlytics.android.Crashlytics
 import com.race604.drawable.wave.WaveDrawable
 import com.squareup.otto.Subscribe
+import io.fabric.sdk.android.Fabric
 import kr.okky.app.android.R
 import kr.okky.app.android.global.*
 import kr.okky.app.android.utils.OkkyUtils
@@ -45,6 +47,11 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Fabric.with(Fabric.Builder(this)
+                .kits(Crashlytics())
+                .debuggable(MODE == Mode.DEV)
+                .build())
 
         //Pref.init(this)
         OkkyUtils.checkDrawerMenuJsonOfPref(baseContext)
