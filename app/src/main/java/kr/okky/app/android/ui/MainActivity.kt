@@ -92,10 +92,10 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     }
 
     override fun attachEvents() {
-        mWebWrapper?.mWebView!!.setOnKeyListener(MainActivity@this)
+        mWebWrapper?.mWebView!!.setOnKeyListener(this)
         mWebWrapper?.mWebView!!.setOnClickListener { view -> toggleDrawer() }
         val wv = mWebWrapper?.mWebView as OkkyWebView
-        wv.onScrollChangeListener = MainActivity@this
+        wv.onScrollChangeListener = this
 
         val layout = getView<ConstraintLayout>(R.id.box_main)//for soft keyboard show/hide
 //        val layout:ConstraintLayout? = null //crashlytics force test
@@ -155,14 +155,14 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     }
 
     override fun onResume() {
-        BusProvider.eventBus.register(MainActivity@ this)
+        BusProvider.eventBus.register(this)
         BusProvider.eventBus.post(BusEvent(BusEvent.Evt.BOTTOM_HISTORY))
         checkDrawerMenuFlagChanged()
         super.onResume()
     }
 
     override fun onPause() {
-        BusProvider.eventBus.unregister(MainActivity@this)
+        BusProvider.eventBus.unregister(this)
         super.onPause()
     }
 
@@ -320,7 +320,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
             menu.add(1, 1, 1, getString(R.string.txt_context_menu_share))
                     .setOnMenuItemClickListener {
                         if (URLUtil.isValidUrl(imageURL)) {
-                            ShareCompat.IntentBuilder.from(MainActivity@this)
+                            ShareCompat.IntentBuilder.from(this)
                                     .setType("text/plain")
                                     .setChooserTitle(R.string.txt_selection)
                                     .setText(imageURL)
