@@ -88,12 +88,13 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
     }
 
     fun loadUrl(url: String) {
+        mCurrentUrl = url
         mWebView?.loadUrl(url, header)
     }
 
     fun isMainPage():Boolean{
         mCurrentUrl?.let {
-            return it == getUrl().plus("/")
+            return it.matches("^(https://okky.kr)/?$".toRegex())
         }
         return false
     }
