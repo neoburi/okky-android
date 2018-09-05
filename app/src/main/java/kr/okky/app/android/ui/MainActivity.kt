@@ -196,8 +196,9 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
 
     private fun controlBottomMenuHistory(){
         mBottomBar?.enableAll()
+        val isMain = mWebWrapper?.isMainPage()
         mWebWrapper?.mWebView?.let {
-            mBottomBar?.setAvailable(it.canGoBack(), Menu.BACKWARD.ordinal)
+            mBottomBar?.setAvailable(it.canGoBack().and(!isMain!!), Menu.BACKWARD.ordinal)
             mBottomBar?.setAvailable(it.canGoForward(), Menu.FORWARD.ordinal)
         }
     }
