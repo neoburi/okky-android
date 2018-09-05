@@ -67,7 +67,7 @@
         android:layout_marginEnd="@dimen/dp_16"
         android:layout_marginStart="@dimen/dp_16"
         android:layout_marginTop="8dp"
-        android:text="@string/txt_app_thanks"
+        android:text="@string/txt_opensource_license"
         android:textColor="@color/color_eeeeee"
         android:textSize="@dimen/sp_14"
         android:textStyle="bold"

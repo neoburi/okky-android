@@ -65,7 +65,7 @@
         \n\n개선사항이나 문의는 아래에 의견 남겨주세요.
         \nhttps://github.com/neoburi/okky-android/issues
     </string>
-    <string name="txt_app_thanks">Thanks for&#8230;</string>
+    <string name="txt_opensource_license">OPEN SOURCE LICENSE</string>
     <string name="txt_app_thanks_desc">
         EasyPermissions\n
         https://github.com/googlesamples/easypermissions
