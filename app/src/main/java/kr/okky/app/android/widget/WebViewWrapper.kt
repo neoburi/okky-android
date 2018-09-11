@@ -35,6 +35,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
     private var mClearHistories:Boolean = false
     private val mErrorCodes = arrayOf(WebViewClient.ERROR_AUTHENTICATION, WebViewClient.ERROR_UNSUPPORTED_SCHEME)
     private val header = HashMap<String, String>()
+    private var mPageTitle: String? = null
 
     init {
         header["Okky.App"] = "${mActivity.packageName}, v${OkkyUtils.getVersionName(mActivity.baseContext)}"
@@ -276,6 +277,11 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                 mActivity.startActivityForResult(chooserIntent, 20001)
             }
             return true
+        }
+
+        override fun onReceivedTitle(view: WebView?, title: String?) {
+            mPageTitle = title
+            super.onReceivedTitle(view, title)
         }
     }
 
