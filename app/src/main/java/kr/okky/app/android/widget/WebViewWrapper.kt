@@ -21,15 +21,13 @@ import kr.okky.app.android.utils.OkkyLog
 import kr.okky.app.android.utils.OkkyUtils
 import java.io.File
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.HashMap
 
 
 class WebViewWrapper constructor(val mActivity: BaseActivity){
     var mWebView:WebView? = null
-    private var mFilePathCallback: ValueCallback<Array<Uri>>? = null
-    private var mCameraPhotoPath: String? = null
+    private var mCallback: ValueCallback<Array<Uri>>? = null
+    private var mImagePath: String? = null
     private var mPreviousUrl:String? = null
     private var mCurrentUrl:String? = null
     private var mClearHistories:Boolean = false
@@ -240,41 +238,41 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                 return false
             }
 
-            mFilePathCallback = filePathCallback
+            mCallback = filePathCallback
 
-            var takePictureInent:Intent? = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            if(takePictureInent?.resolveActivity(mActivity.packageManager) != null){
-                var photoFile:File? = null
+            var imageInent: Intent? = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            if (imageInent?.resolveActivity(mActivity.packageManager) != null) {
+                var imageFile: File? = null
                 try {
-                    photoFile = createImageFile()
-                    takePictureInent.putExtra("_PHOTO_PATH_", mCameraPhotoPath)
+                    imageFile = createImageFile()
+                    imageInent.putExtra("_PHOTO_PATH_", mImagePath)
                 }catch (e:IOException){
                     OkkyLog.err("image file creation fail.", e)
                 }
-                photoFile?.let {
-                    mCameraPhotoPath = "file:".plus(photoFile.absolutePath)
-                    takePictureInent?.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile))
+                imageFile?.let {
+                    mImagePath = "file:".plus(imageFile.absolutePath)
+                    imageInent?.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile))
                 }?:kotlin.run {
-                    takePictureInent = null
+                    imageInent = null
                 }
 
-                val contentSelectionIntent = Intent(Intent.ACTION_GET_CONTENT).apply {
+                val content = Intent(Intent.ACTION_GET_CONTENT).apply {
                     addCategory(Intent.CATEGORY_OPENABLE)
                     type = "image/*"
                 }
 
                 val intentArray: Array<Intent?> =
-                        takePictureInent?.let {
-                            arrayOf(takePictureInent)
+                        imageInent?.let {
+                            arrayOf(imageInent)
                         }?:arrayOfNulls(0)
 
 
-                val chooserIntent = Intent(Intent.ACTION_CHOOSER).apply {
-                    putExtra(Intent.EXTRA_INTENT, contentSelectionIntent)
+                val chooser = Intent(Intent.ACTION_CHOOSER).apply {
+                    putExtra(Intent.EXTRA_INTENT, content)
                     putExtra(Intent.EXTRA_TITLE, mActivity.getString(R.string.txt_selection))
                     putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray)
                 }
-                mActivity.startActivityForResult(chooserIntent, 20001)
+                mActivity.startActivityForResult(chooser, 20001)
             }
             return true
         }
@@ -294,14 +292,14 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                     results = arrayOf(Uri.parse(it))
                 }
             }?:kotlin.run {
-                mCameraPhotoPath?.let {
-                    results = arrayOf(Uri.parse(mCameraPhotoPath))
+                mImagePath?.let {
+                    results = arrayOf(Uri.parse(mImagePath))
                 }
             }
         }
 
-        mFilePathCallback?.onReceiveValue(results)
-        mFilePathCallback = null
+        mCallback?.onReceiveValue(results)
+        mCallback = null
     }
 
     @Throws(IOException::class)
