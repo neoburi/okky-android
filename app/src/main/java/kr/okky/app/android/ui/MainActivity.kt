@@ -26,6 +26,7 @@ import com.squareup.otto.Subscribe
 import io.fabric.sdk.android.Fabric
 import kr.okky.app.android.R
 import kr.okky.app.android.global.*
+import kr.okky.app.android.model.SharedData
 import kr.okky.app.android.utils.OkkyUtils
 import kr.okky.app.android.utils.Pref
 import kr.okky.app.android.widget.BottomMenu
@@ -77,6 +78,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         mWebWrapper = WebViewWrapper(this).apply {
             initWebView(getView(R.id.web_view))
             loadUrl(getUrl())
+            mSharedData = SharedData().parseIntent(intent)
         }
 
         registerForContextMenu(mWebWrapper?.mWebView)

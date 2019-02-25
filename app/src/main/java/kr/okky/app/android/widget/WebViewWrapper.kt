@@ -16,6 +16,7 @@ import android.webkit.*
 import kr.okky.app.android.BuildConfig
 import kr.okky.app.android.R
 import kr.okky.app.android.global.*
+import kr.okky.app.android.model.SharedData
 import kr.okky.app.android.ui.BaseActivity
 import kr.okky.app.android.utils.OkkyLog
 import kr.okky.app.android.utils.OkkyUtils
@@ -34,7 +35,8 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
     private val mErrorCodes = arrayOf(WebViewClient.ERROR_AUTHENTICATION, WebViewClient.ERROR_UNSUPPORTED_SCHEME)
     private val header = HashMap<String, String>()
     private var mPageTitle: String? = null
-
+    var mSharedData:SharedData? = null
+    private var mJsBridge: OkkyBridge? = null
     init {
         header["Okky.App"] = "${mActivity.packageName}, v${OkkyUtils.getVersionName(mActivity.baseContext)}"
     }
@@ -71,13 +73,13 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
             cacheMode = WebSettings.LOAD_NO_CACHE
 
         }
-
+        mJsBridge = OkkyBridge()
         mWebView?.let {
             it.refreshDrawableState()
             it.setInitialScale(1)
             it.webViewClient = OkkyWebViewClient()
             it.webChromeClient = OkkyChromeClient()
-            it.addJavascriptInterface(OkkyBridge(), "okkyBridge")
+            it.addJavascriptInterface(mJsBridge!!, "okkyAndroidBridge")
         }
 
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
@@ -162,6 +164,9 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                     it.clearHistory()
                     mClearHistories = false
                 }
+            }
+            if(mSharedData?.hasContent()!!){
+                mJsBridge?.shareContent()
             }
         }
 
@@ -315,6 +320,12 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
         @JavascriptInterface
         fun testFunc() {
 
+        }
+
+        @JavascriptInterface
+        fun shareContent(){
+            mWebView?.loadUrl("javascript:shareContent('${mSharedData?.encodedSubject()}', '${mSharedData?.encodedText()}'")
+            mSharedData?.clear()
         }
     }
 
