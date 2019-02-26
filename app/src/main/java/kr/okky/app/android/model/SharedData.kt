@@ -5,7 +5,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.net.URLEncoder
 
-class SharedData(
+data class SharedData(
     var subject:String? = null,
     var text:String? = null
 ) :Parcelable {

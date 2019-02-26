@@ -29,6 +29,14 @@ enum class Mode{
     DEV, SERVICE
 }
 
+enum class StoreKey{
+    FCM_TOKEN, FCM_DATA, ACTION_FLAG
+}
+
+enum class ActionType{
+    FCM, SHARE
+}
+
 const val TAG:String = "OKKY"
 const val DRAWER_MENU_JSON = "NAVIGATION_DRAWER_MENU_JSON"
 const val DRAWER_MENU_CHANGED = "DRAWER_MENU_CHANGED"

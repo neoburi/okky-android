@@ -4,14 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE"/> -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <meta-data
         android:name="firebase_crashlytics_collection_enabled"
         android:value="true" />
-
     <meta-data
         android:name="android.webkit.WebView.EnableSafeBrowsing"
         android:value="false" />
@@ -25,6 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <activity
             android:name=".ui.GatewayActivity"
             android:theme="@style/AppThemeFull">
@@ -35,16 +34,25 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.MainActivity"/>
-
+        <activity android:name=".ui.MainActivity" />
         <activity
             android:name=".ui.SettingsActivity"
-            android:theme="@style/AppThemeActivity"/>
+            android:theme="@style/AppThemeActivity" />
+
+        <service
+            android:name="kr.okky.app.android.service.fcm.OkkyFcmService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
