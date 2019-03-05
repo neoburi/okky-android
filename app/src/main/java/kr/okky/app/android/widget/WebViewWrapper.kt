@@ -50,6 +50,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
 
         mWebView?.settings?.run {
             setSupportZoom(true)
+            userAgentString = mActivity.getString(R.string.app_name)
             builtInZoomControls = true
             displayZoomControls = false
 
@@ -131,10 +132,10 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                 url.startsWith(UrlCompareValue.HTTP.value()) -> {
                     var loadTarget: String = url
                     when {
-                        url.contains(UrlCompareValue.GOOGLE_OAUTH.value()) -> {
+                        /*url.contains(UrlCompareValue.GOOGLE_OAUTH.value()) -> {
                             mActivity.toast(R.string.txt_not_support)
                             return true
-                        }
+                        }*/
                         url.contains(UrlCompareValue.LOGIN.value()) -> {
                             setupUrl()
                             loadTarget = getLoginUrl(mPreviousUrl)
