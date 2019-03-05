@@ -30,11 +30,7 @@ enum class Mode{
 }
 
 enum class StoreKey{
-    FCM_TOKEN, FCM_DATA, ACTION_FLAG
-}
-
-enum class ActionType{
-    FCM, SHARE
+    FCM_TOKEN, FCM_DATA
 }
 
 const val TAG:String = "OKKY"

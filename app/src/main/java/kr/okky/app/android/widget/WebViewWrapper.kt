@@ -16,6 +16,7 @@ import android.webkit.*
 import kr.okky.app.android.BuildConfig
 import kr.okky.app.android.R
 import kr.okky.app.android.global.*
+import kr.okky.app.android.model.PushData
 import kr.okky.app.android.model.SharedData
 import kr.okky.app.android.ui.BaseActivity
 import kr.okky.app.android.utils.OkkyLog
@@ -35,8 +36,10 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
     private val mErrorCodes = arrayOf(WebViewClient.ERROR_AUTHENTICATION, WebViewClient.ERROR_UNSUPPORTED_SCHEME)
     private val header = HashMap<String, String>()
     private var mPageTitle: String? = null
-    var mSharedData:SharedData? = null
     private var mJsBridge: OkkyBridge? = null
+    var mSharedData:SharedData? = null
+    var mPushData: PushData? = null
+
     init {
         header["Okky.App"] = "${mActivity.packageName}, v${OkkyUtils.getVersionName(mActivity.baseContext)}"
     }

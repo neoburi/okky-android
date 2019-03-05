@@ -3,6 +3,7 @@ package kr.okky.app.android.model
 import android.content.Intent
 import android.os.Parcel
 import android.os.Parcelable
+import kr.okky.app.android.utils.OkkyLog
 import java.net.URLEncoder
 
 data class SharedData(
@@ -34,12 +35,14 @@ data class SharedData(
 
     fun parseIntent(itt:Intent):SharedData{
         val bundle = itt.extras
-        when(bundle != null) {
-            true -> {
-                subject = bundle.getString("android.intent.extra.SUBJECT")
-                text = bundle.getString("android.intent.extra.TEXT")
-            }
+        bundle?.let {
+            subject = bundle.getString("android.intent.extra.SUBJECT")
+            text = bundle.getString("android.intent.extra.TEXT")
+            /*bundle.keySet().forEach { k->
+                OkkyLog.log("key=$k, value=${bundle[k]}")
+            }*/
         }
+
         return this
     }
 

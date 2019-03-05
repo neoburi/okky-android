@@ -18,11 +18,11 @@ class PushData: Parcelable{
 
     fun parseData(data:Map<String, String>):PushData{
         data?.let {
-            for((key, value) in data){
+            /*for((key, value) in data){
                 OkkyLog.err(TAG, "key=$key, value=$value")
-            }
+            }*/
             title = data["title"]
-            message = data["msg"]
+            message = data["message"]
             url = data["url"]
         }
         return this

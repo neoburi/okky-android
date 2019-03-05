@@ -26,7 +26,9 @@ import com.squareup.otto.Subscribe
 import io.fabric.sdk.android.Fabric
 import kr.okky.app.android.R
 import kr.okky.app.android.global.*
+import kr.okky.app.android.model.PushData
 import kr.okky.app.android.model.SharedData
+import kr.okky.app.android.utils.OkkyLog
 import kr.okky.app.android.utils.OkkyUtils
 import kr.okky.app.android.utils.Pref
 import kr.okky.app.android.widget.BottomMenu
@@ -39,6 +41,9 @@ import pub.devrel.easypermissions.EasyPermissions
 
 class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.PermissionCallbacks,
         OkkyWebView.OnScrollChangeListener {
+    companion object {
+        val TAG: String = MainActivity::class.java.simpleName
+    }
     private var mWebWrapper: WebViewWrapper? = null
     private var mFinishCondition: Boolean = false
     private val mExitHandler = Handler()
@@ -53,7 +58,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
                 .kits(Crashlytics())
                 .debuggable(MODE == Mode.DEV)
                 .build())
-
+        traceBundleValues()
         //Pref.init(this)
         OkkyUtils.checkDrawerMenuJsonOfPref(baseContext)
 
@@ -61,6 +66,15 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         findViews()
         initViews()
         attachEvents()
+    }
+
+    private fun traceBundleValues() {
+        val bundle = intent.extras
+        bundle?.let {
+            bundle.keySet().iterator().forEach { k ->
+                OkkyLog.err(TAG, "bundle key=$k, value=${bundle[k]}")
+            }
+        }
     }
 
     override fun findViews() {
@@ -79,6 +93,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
             initWebView(getView(R.id.web_view))
             loadUrl(getUrl())
             mSharedData = SharedData().parseIntent(intent)
+            mPushData = intent.getParcelableExtra(StoreKey.FCM_DATA.name)
         }
 
         registerForContextMenu(mWebWrapper?.mWebView)

@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
@@ -12,7 +13,6 @@ import android.support.v4.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kr.okky.app.android.R
-import kr.okky.app.android.global.ActionType
 import kr.okky.app.android.global.StoreKey
 import kr.okky.app.android.model.PushData
 import kr.okky.app.android.ui.MainActivity
@@ -26,8 +26,21 @@ class OkkyFcmService : FirebaseMessagingService() {
     override fun onMessageReceived(rm: RemoteMessage?) {
         OkkyLog.err(TAG, "Remote message from : ${rm?.from}")
         rm?.data?.isNotEmpty()?.let {
-            OkkyLog.err(TAG, "Message data : ${rm.data}")
+            val nt = rm.notification
+            nt?.let {
+                OkkyLog.err(TAG,
+                        "Notification : ${nt.toString()}, Message title : ${nt.title}, message : ${nt.body}, data : ${rm.data}")
+            }
+            traceData(rm.data)
             sendNotification(PushData().parseData(rm.data))
+        }
+    }
+
+    private fun traceData(data: Map<String, String>) {
+        data.let {
+            data.keys.iterator().forEach { k ->
+                OkkyLog.err(MainActivity.TAG, "push bundle key=$k, value=${data[k]}")
+            }
         }
     }
 
@@ -45,19 +58,22 @@ class OkkyFcmService : FirebaseMessagingService() {
 
         var bundle = Bundle()
         bundle.putParcelable(StoreKey.FCM_DATA.name, pushData)
-        bundle.putString(StoreKey.ACTION_FLAG.name, ActionType.FCM.name)
         intent.putExtras(bundle)
 
         val pendingIntent = PendingIntent.getActivities(this, 0, arrayOf(intent), PendingIntent.FLAG_ONE_SHOT)
-        val channelId = getString(R.string.default_notification_channel_it)
+        val channelId = getString(R.string.default_notification_channel_id)
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val builder = NotificationCompat.Builder(this, channelId)
+        var builder = NotificationCompat.Builder(this, channelId)
+                .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_round))
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(pushData.title)
                 .setContentText(pushData.message)
                 .setAutoCancel(true)
                 .setSound(soundUri)
                 .setContentIntent(pendingIntent)
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.color = resources.getColor(R.color.colorAccent)
+        }
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
