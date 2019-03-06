@@ -1,5 +1,6 @@
 package kr.okky.app.android.utils
 
+import android.app.ActivityManager
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -7,6 +8,7 @@ import android.content.res.AssetManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kr.okky.app.android.global.DRAWER_MENU_JSON
+import kr.okky.app.android.global.TAG
 import kr.okky.app.android.model.NaviMenu
 import java.io.*
 import java.util.*
@@ -55,7 +57,7 @@ object OkkyUtils {
     }
 
     fun readMenuJsonFromAssets(assetManager: AssetManager): String {
-        var contents = StringBuilder()
+        val contents = StringBuilder()
         var input: InputStream? = null
         var reader: BufferedReader? = null
         try {
@@ -134,4 +136,13 @@ object OkkyUtils {
 
     fun getPackageInfo(context:Context): PackageInfo? =
             context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_META_DATA)
+
+    fun getTopActivity(context: Context): String {
+        val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val taskInfo = am.getRunningTasks(1)
+        val componentInfo = taskInfo[0].topActivity
+        /*OkkyLog.err(TAG,
+                "CURRENT Activity ::${taskInfo[0].topActivity.className}, Package Name : ${componentInfo.packageName}")*/
+        return taskInfo[0].topActivity.className
+    }
 }

@@ -30,7 +30,34 @@ enum class Mode{
 }
 
 enum class StoreKey{
-    FCM_TOKEN, FCM_DATA
+    FCM_TOKEN, FCM_DATA, DATA_STARTING_POINT
+}
+
+enum class StartingPoint {
+    NOTIFICATION, BROADCAST
+}
+
+enum class FcmDataKey(
+        var key: String
+) {
+    PUSH_TYPE("type"),
+    PUSH_TITLE("title"),
+    PUSH_MESSAGE("message"),
+    PUSH_URL("url"),
+    PUSH_IMAGE("image")
+}
+
+enum class BroadcastAction(
+        var action: String
+) {
+    PUSN_RECEIVE_ACTION("kr.okky.app.android.PUSH_RECEIVE")
+}
+
+enum class PushType(
+        var type: String,
+        var key: String
+) {
+    CONTENT("CONTENT", "content"), ADVERTISE("AD", "advertise")
 }
 
 const val TAG:String = "OKKY"

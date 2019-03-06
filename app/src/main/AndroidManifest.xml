@@ -22,8 +22,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
         <activity
             android:name=".ui.GatewayActivity"
             android:theme="@style/AppThemeFull">
@@ -40,7 +38,9 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity">
+        <activity
+            android:name=".ui.MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="kr.okky.PUSH_CLICK_ACTION" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -51,7 +51,7 @@
             android:theme="@style/AppThemeActivity" />
 
         <service
-            android:name="kr.okky.app.android.service.fcm.OkkyFcmService"
+            android:name=".service.fcm.OkkyFcmService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -70,15 +70,6 @@
                 android:name="com.google.firebase.messaging.default_notification_color"
                 android:resource="@color/colorAccent" />
         </service>
-
-        <receiver
-            android:exported="true"
-            android:name=".service.fcm.FcmIntentReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

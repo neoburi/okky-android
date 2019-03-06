@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {height: 100%;}
+        .wrapper{width:90%; height:90%; margin:0 auto; text-align: center;vertical-align:middle;}
+        .logo{width: 200px;text-align: center;}
+        h1{text-align:center; color:#292929; margin-bottom:10px;}
+        ul li{
+            margin:25px auto; width:75%; color:#47597f; font-size:30px; background-color:#e5eaf5; padding:15px 25px; line-height:150%; list-style:none; border:1px solid #cfd8ec;
+        }
+        .btn_p{
+            background-color:#2357ac; padding:10px 30px 10px 30px; margin:0 auto; width:160px; text-align:center;
+        }
+        a{font-size:30px; color:#FFF; text-decoration:none;}
+
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <div><img src="./img_bg_okky_logo.png" class="logo"></div>
+    <h1>웹페이지를 사용할 수 없습니다.</h1>
+    <ul>
+        <li>
+            <span id="error-text"></span><br/>
+            (<span id="error-desc"></span>)
+        </li>
+    </ul>
+    <a class="btn_p" href="#" onClick='javascript:retry()'>다시 시도</a>
+</div>
+</body>
+
+<script>
+    var urlParams = new URLSearchParams(window.location.search);
+
+    var errorCode = parseInt(urlParams.get('code'));
+    var errorDescription = urlParams.get('desc');
+
+    document.getElementById('error-desc').innerHTML = errorDescription;
+    var msg = '';
+    switch(errorCode) {
+        case -1:
+            msg = 'Generic error.';
+            break;
+        case -2: 
+            msg = 'Server or proxy hostname lookup failed.';
+            break;
+        case -3:
+            msg = 'Unsupported authentication scheme (not basic or digest).';
+            break;
+        case -4:
+        case -5:
+            msg = 'User authentication failed on server or proxy.';
+            break;
+        case -6:
+            msg = 'Failed to connect to the server.';
+            break;
+        case -7:
+            msg = 'Failed to read or write to the server.';
+            break;
+        case -8:
+            msg = 'Connection timed out.';
+            break;
+        case -9:
+            msg = 'Too many redirects.';
+            break;
+        case -10:
+            msg = 'Unsupported URI scheme.';
+            break;
+        case -11:
+            msg = 'Failed to perform SSL handshake.';
+            break;
+        case -12:
+            msg = 'Malformed URL.';
+            break;
+        case -13:
+        case -14:
+            msg = 'Generic file error or file not found';
+            break;
+        case -15:
+            msg = 'Too many requests during this load.';
+            break;
+        case -16:
+            msg = 'Resource load was cancelled by Safe Browsing.';
+            break;
+        default:
+            msg = 'Generic error.';
+    }
+    document.getElementById('error-text').innerHTML = msg;
+
+    function retry(){
+        if( window.okkyAndroidBridge ){
+            window.okkyAndroidBridge.retry();
+        }
+    }
+
+</script>
+
+</html>

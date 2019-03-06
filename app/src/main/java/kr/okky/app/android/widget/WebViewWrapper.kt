@@ -19,8 +19,10 @@ import kr.okky.app.android.global.*
 import kr.okky.app.android.model.PushData
 import kr.okky.app.android.model.SharedData
 import kr.okky.app.android.ui.BaseActivity
+import kr.okky.app.android.ui.MainActivity
 import kr.okky.app.android.utils.OkkyLog
 import kr.okky.app.android.utils.OkkyUtils
+import kr.okky.app.android.utils.Pref
 import java.io.File
 import java.io.IOException
 import kotlin.collections.HashMap
@@ -39,7 +41,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
     private var mJsBridge: OkkyBridge? = null
     var mSharedData:SharedData? = null
     var mPushData: PushData? = null
-
+    private var mLoginStatus: Boolean = false
     init {
         header["Okky.App"] = "${mActivity.packageName}, v${OkkyUtils.getVersionName(mActivity.baseContext)}"
     }
@@ -75,7 +77,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
             allowUniversalAccessFromFileURLs = true
             loadWithOverviewMode = true
             cacheMode = WebSettings.LOAD_NO_CACHE
-
+            defaultTextEncodingName = "utf-8"
         }
         mJsBridge = OkkyBridge()
         mWebView?.let {
@@ -172,18 +174,24 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
             if(mSharedData?.hasContent()!!){
                 mJsBridge?.shareContent()
             }
+            checkLoginStatus()
         }
 
-        @TargetApi(Build.VERSION_CODES.M)
+        /*@TargetApi(Build.VERSION_CODES.M)
         override fun onReceivedError(view: WebView, req: WebResourceRequest, rerr: WebResourceError) {
             onReceivedError(view, rerr.errorCode, rerr.description.toString(), req.url.toString())
-        }
+        }*/
 
         override fun onReceivedError(view: WebView, errorCode: Int, description: String, failingUrl: String) {
+            OkkyLog.err(TAG, "page load fail : errorCode=$errorCode, des=$description")
+            mWebView?.loadUrl("file:///android_asset/html/error.html?code=$errorCode&desc=$description")
+            /*if(description.contains("ERR_INTERNET_DISCONNECTED")){
+
+            }
             if (mErrorCodes.contains(errorCode)) {
                 clearWebView()
                 loadUrl(getUrl())
-            }
+            }*/
         }
 
     }
@@ -328,9 +336,48 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
 
         @JavascriptInterface
         fun shareContent(){
-            mWebView?.loadUrl("javascript:shareContent('${mSharedData?.encodedSubject()}', '${mSharedData?.encodedText()}'")
+            loadJavaScript("javascript:shareContent('${mSharedData?.encodedSubject()}', '${mSharedData?.encodedText()}')")
             mSharedData?.clear()
         }
+
+        @JavascriptInterface
+        fun retry() {
+            mWebView?.let {
+                it.post {
+                    when (mCurrentUrl != null) {
+                        true -> it.loadUrl(mCurrentUrl)
+                        else -> it.loadUrl(getUrl())
+                    }
+                }
+            }
+        }
+
+        @JavascriptInterface
+        fun getPushToken(funcName: String?) {
+            loadJavaScript("javascript:$funcName('${Pref.getStringValue(StoreKey.FCM_TOKEN.name, "")}')")
+        }
+
+        @JavascriptInterface
+        fun openDrawerMenu() {
+            with((mActivity as MainActivity)) {
+                toggleDrawer()
+            }
+        }
+
+        @JavascriptInterface
+        fun setLoginStatus(value: String?) {
+            value?.let {
+                mLoginStatus = it.toBoolean()
+            }
+        }
+    }
+
+    fun loadJavaScript(script: String) {
+        mWebView?.loadUrl(script)
+    }
+
+    fun checkLoginStatus() {
+        loadJavaScript("javascript:checkLoginStatus()")
     }
 
     fun goBack() = (mWebView!!.canGoBack()).let{

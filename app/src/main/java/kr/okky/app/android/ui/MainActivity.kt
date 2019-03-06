@@ -1,8 +1,7 @@
 package kr.okky.app.android.ui
 
 import android.app.DownloadManager
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.graphics.Rect
 import android.net.Uri
 import android.os.Build
@@ -11,6 +10,7 @@ import android.os.Handler
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.NavigationView
 import android.support.v4.app.ShareCompat
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.ContextMenu
@@ -50,6 +50,14 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     private var mBottomBar:BottomMenu? = null
     private var mShowKeyboard:Boolean = false
     private var mOkkyNavi: OkkyNaviDrawerMenu? = null
+    /*private val mPushBroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if(BroadcastAction.PUSN_RECEIVE_ACTION.action == intent.action){
+                val data:PushData? = intent.extras?.getParcelable(StoreKey.FCM_DATA.name)
+                handlePushData(data)
+            }
+        }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +66,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
                 .kits(Crashlytics())
                 .debuggable(MODE == Mode.DEV)
                 .build())
-        traceBundleValues()
+
         //Pref.init(this)
         OkkyUtils.checkDrawerMenuJsonOfPref(baseContext)
 
@@ -66,6 +74,10 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         findViews()
         initViews()
         attachEvents()
+        handlePushData(intent)
+
+        //traceBundleValues()//intent values trace.
+        //determinesPushDataExist()
     }
 
     private fun traceBundleValues() {
@@ -172,15 +184,28 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     }
 
     override fun onResume() {
+        super.onResume()
         BusProvider.eventBus.register(this)
         BusProvider.eventBus.post(BusEvent(BusEvent.Evt.BOTTOM_HISTORY))
         checkDrawerMenuFlagChanged()
-        super.onResume()
+        //mWebWrapper?.checkLoginStatus()
+        //registerPushBroadcastReceiver()
     }
 
     override fun onPause() {
-        BusProvider.eventBus.unregister(this)
         super.onPause()
+        BusProvider.eventBus.unregister(this)
+        //unRegisterPushBroadcastReceiver()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //registerPushBroadcastReceiver()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        //unRegisterPushBroadcastReceiver()
     }
 
     @Subscribe
@@ -347,6 +372,68 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
                         }
                         false
                     }
+        }
+    }
+
+    /*private fun registerPushBroadcastReceiver(){
+        val filter = IntentFilter(BroadcastAction.PUSN_RECEIVE_ACTION.action)
+        LocalBroadcastManager.getInstance(baseContext).registerReceiver(mPushBroadcastReceiver, filter)
+    }
+
+    private fun unRegisterPushBroadcastReceiver(){
+        LocalBroadcastManager.getInstance(baseContext).unregisterReceiver(mPushBroadcastReceiver)
+    }
+
+    private fun determinesPushDataExist(){
+        val data:PushData? = intent.extras?.getParcelable(StoreKey.FCM_DATA.name)
+        data?.let {
+            handlePushData(it)
+        }
+    }*/
+
+    private fun handlePushData(intent: Intent?) {
+        val bundle = intent?.extras
+        bundle?.let {
+            /*bundle.keySet().iterator().forEach { k ->
+                OkkyLog.err(TAG, "onNewIntent bundle key=$k, value=${bundle[k]}")
+            }*/
+            val pushData: PushData? = it.getParcelable(StoreKey.FCM_DATA.name) as? PushData
+
+            pushData?.let { data ->
+                when {
+                    data.isAd() -> {
+                        if (data.advertise?.url?.contains("okky.kr")!!) {
+                            mWebWrapper?.loadUrl(data.advertise?.url!!)
+                        } else {
+                            openChrome(data.advertise?.url)
+                        }
+                    }
+                    else -> {
+                        mWebWrapper?.loadUrl(data.content?.url!!)
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        handlePushData(intent)
+        super.onNewIntent(intent)
+    }
+
+
+    private fun openChrome(url: String?) {
+        try {
+            val uri = Uri.parse("googlechrome://navigate?url=$url")
+            val itt = Intent(Intent.ACTION_VIEW, uri).also {
+                if (it.resolveActivity(packageManager) == null) {
+                    it.data = uri
+                }
+            }
+
+            startActivity(itt)
+        } catch (ex: ActivityNotFoundException) {
+            mWebWrapper?.loadUrl(url!!)
         }
     }
 }
