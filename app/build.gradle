@@ -16,8 +16,8 @@ android {
         applicationId "kr.okky.app.android"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 100008
-        versionName "1.0.8"
+        versionCode 100100
+        versionName "1.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
