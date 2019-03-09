@@ -1,0 +1,20 @@
+[
+  {
+    "topic":"notice",
+    "title":"공지사항 알림",
+    "description":"공시자상이 등록되면 알림을 받습니다.",
+    "status":false
+  },
+  {
+    "topic":"event",
+    "title":"이벤트 알림",
+    "description":"이벤트에 대한 알림을 받습니다.",
+    "status":false
+  },
+  {
+    "topic":"comment",
+    "title":"게시글 알림",
+    "description":"직접 게시한 글 또는 댓글을 단 게시글에 대한 알림을 받습니다.",
+    "status":false
+  }
+]

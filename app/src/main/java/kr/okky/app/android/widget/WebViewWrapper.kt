@@ -282,8 +282,6 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                         imageInent?.let {
                             arrayOf(imageInent)
                         }?:arrayOfNulls(0)
-
-
                 val chooser = Intent(Intent.ACTION_CHOOSER).apply {
                     putExtra(Intent.EXTRA_INTENT, content)
                     putExtra(Intent.EXTRA_TITLE, mActivity.getString(R.string.txt_selection))
@@ -357,7 +355,8 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
          */
         @JavascriptInterface
         fun getPushToken(funcName: String?) {
-            loadJavaScript("javascript:$funcName('$DEVICE_TYPE', '${Pref.getStringValue(StoreKey.FCM_TOKEN.name, "")}')")
+            loadJavaScript(
+                    "javascript:$funcName('$DEVICE_TYPE', '${Pref.getStringValue(StoreKey.FCM_TOKEN.name, "")}', ${Pref.getBooleanValue(StoreKey.PUSH_ACCEPT.name, false)})")
         }
 
         @JavascriptInterface

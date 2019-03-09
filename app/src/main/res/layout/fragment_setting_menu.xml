@@ -14,7 +14,7 @@
         android:layout_marginStart="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_16"
         android:textSize="@dimen/dp_14"
-        android:text="@string/settings_header_text"
+        android:text="@string/settings_menu_header_text"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

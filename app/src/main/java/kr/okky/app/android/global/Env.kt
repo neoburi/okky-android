@@ -30,7 +30,7 @@ enum class Mode{
 }
 
 enum class StoreKey{
-    FCM_TOKEN, FCM_DATA, DATA_STARTING_POINT
+    FCM_TOKEN, FCM_DATA, DATA_STARTING_POINT, PUSH_ACCEPT
 }
 
 enum class StartingPoint {

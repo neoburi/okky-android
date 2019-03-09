@@ -52,10 +52,14 @@
 
     <string name="settings">설정</string>
 
-    <string name="settings_header_text">게시판 메뉴를 ON/OFF합니다.</string>
-    <string name="settings_menu">Menu</string>
-    <string name="settings_env">Env</string>
-    <string name="settings_info">Info</string>
+    <string name="settings_menu_header_text">게시판 메뉴를 ON/OFF합니다.</string>
+    <string name="settings_menu">메뉴 설정</string>
+    <string name="settings_env">기타환경 설정</string>
+    <string name="settings_push_header_text_01">푸시수신 상태를 ON/OFF합니다.</string>
+    <string name="settings_push_header_text_02">\n수신 상태 설정과 관계없이 중요알림은 발송됩니다.</string>
+    <string name="settings_push">알림 설정</string>
+    <string name="settings_push_accept">알림 메세지 수신</string>
+    <string name="settings_info">앱 정보</string>
 
     <string name="txt_app_title">OKKY.EXPLORER</string>
     <string name="txt_app_version">version %s</string>
@@ -75,6 +79,9 @@
         \n\n
         Otto - An event bus by Square\n
         https://github.com/square/otto
+        \n\n
+        SpannableText\n
+        https://github.com/meganz/android/blob/master/app/src/main/java/mega/privacy/android/app/components/SimpleSpanBuilder.java
     </string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

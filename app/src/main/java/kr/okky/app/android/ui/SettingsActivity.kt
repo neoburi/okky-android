@@ -11,6 +11,7 @@ import android.view.View
 import kr.okky.app.android.R
 import kr.okky.app.android.ui.frag.SettingsInfoFragment
 import kr.okky.app.android.ui.frag.SettingsMenuFragment
+import kr.okky.app.android.ui.frag.SettingsPushFragment
 
 class SettingsActivity : BaseActivity() {
     private var mPager: ViewPager? = null
@@ -62,12 +63,12 @@ class SettingsActivity : BaseActivity() {
     private inner class SettingsAdapter internal constructor() : FragmentPagerAdapter(supportFragmentManager) {
         val titles = arrayOf(
                 getString(R.string.settings_menu),
-                /*getString(R.string.settings_env),*/
+                getString(R.string.settings_push),
                 getString(R.string.settings_info)
         )
         private val mItems = arrayListOf(
                 SettingsMenuFragment(),
-                /*SettingsEnvFragment(),*/
+                SettingsPushFragment(),
                 SettingsInfoFragment()
         )
 
