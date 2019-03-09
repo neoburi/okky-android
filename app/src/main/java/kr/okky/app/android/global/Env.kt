@@ -65,6 +65,7 @@ const val DRAWER_MENU_JSON = "NAVIGATION_DRAWER_MENU_JSON"
 const val DRAWER_MENU_CHANGED = "DRAWER_MENU_CHANGED"
 
 val MODE: Mode = Mode.SERVICE
+const val DEVICE_TYPE: String = "A"
 
 fun getUrl():String{
     return when(MODE){
