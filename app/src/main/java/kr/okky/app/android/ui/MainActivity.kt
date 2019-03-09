@@ -1,7 +1,9 @@
 package kr.okky.app.android.ui
 
 import android.app.DownloadManager
-import android.content.*
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
 import android.graphics.Rect
 import android.net.Uri
 import android.os.Build
@@ -10,7 +12,6 @@ import android.os.Handler
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.NavigationView
 import android.support.v4.app.ShareCompat
-import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.ContextMenu
@@ -21,6 +22,7 @@ import android.webkit.URLUtil
 import android.webkit.WebView
 import android.widget.ImageView
 import com.crashlytics.android.Crashlytics
+import com.google.firebase.messaging.FirebaseMessaging
 import com.race604.drawable.wave.WaveDrawable
 import com.squareup.otto.Subscribe
 import io.fabric.sdk.android.Fabric
@@ -74,8 +76,8 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         findViews()
         initViews()
         attachEvents()
-        handlePushData(intent)
-
+        handlePushData(intent, "onCreate()")
+        registerFcmTopic()
         //traceBundleValues()//intent values trace.
         //determinesPushDataExist()
     }
@@ -391,12 +393,12 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         }
     }*/
 
-    private fun handlePushData(intent: Intent?) {
+    private fun handlePushData(intent: Intent?, from: String) {
         val bundle = intent?.extras
         bundle?.let {
-            /*bundle.keySet().iterator().forEach { k ->
-                OkkyLog.err(TAG, "onNewIntent bundle key=$k, value=${bundle[k]}")
-            }*/
+            bundle.keySet().iterator().forEach { k ->
+                OkkyLog.err(TAG, "$from bundle key=$k, value=${bundle[k]}")
+            }
             val pushData: PushData? = it.getParcelable(StoreKey.FCM_DATA.name) as? PushData
 
             pushData?.let { data ->
@@ -417,7 +419,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     }
 
     override fun onNewIntent(intent: Intent?) {
-        handlePushData(intent)
+        handlePushData(intent, "onNewIntent()")
         super.onNewIntent(intent)
     }
 
@@ -435,5 +437,16 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
         } catch (ex: ActivityNotFoundException) {
             mWebWrapper?.loadUrl(url!!)
         }
+    }
+
+    private fun registerFcmTopic() {
+        FirebaseMessaging.getInstance().subscribeToTopic("okky-default")
+                .addOnCompleteListener { task ->
+                    /*var msg = "success"
+                    if (!task.isSuccessful) {
+                        msg = "fail"
+                    }
+                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()*/
+                }
     }
 }
