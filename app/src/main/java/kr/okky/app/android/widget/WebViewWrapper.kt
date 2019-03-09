@@ -352,9 +352,12 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
             }
         }
 
+        /**
+         * @param funcName callback function name.
+         */
         @JavascriptInterface
         fun getPushToken(funcName: String?) {
-            loadJavaScript("javascript:$funcName('${Pref.getStringValue(StoreKey.FCM_TOKEN.name, "")}')")
+            loadJavaScript("javascript:$funcName('$DEVICE_TYPE', '${Pref.getStringValue(StoreKey.FCM_TOKEN.name, "")}')")
         }
 
         @JavascriptInterface
@@ -364,6 +367,9 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
             }
         }
 
+        /**
+         * @param value true is signed in else isn't.
+         */
         @JavascriptInterface
         fun setLoginStatus(value: String?) {
             value?.let {
