@@ -3,18 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0"/>
     <style>
-        html, body {height: 100%;}
+        html, body {height: 100%;vertical-align:middle;}
         .wrapper{width:90%; height:90%; margin:0 auto; text-align: center;vertical-align:middle;}
-        .logo{width: 200px;text-align: center;}
-        h1{text-align:center; color:#292929; margin-bottom:10px;}
-        ul li{
-            margin:25px auto; width:75%; color:#47597f; font-size:30px; background-color:#e5eaf5; padding:15px 25px; line-height:150%; list-style:none; border:1px solid #cfd8ec;
+        .logo{width: 100px;text-align: center;}
+        h4{text-align:center; color:#292929; margin-bottom:10px;}
+        p{
+            color:#47597f; font-size:14px; background-color:#e5eaf5; padding:10px 10px; line-height:150%; list-style:none; border:1px solid #cfd8ec;
         }
-        .btn_p{
-            background-color:#2357ac; padding:10px 30px 10px 30px; margin:0 auto; width:160px; text-align:center;
+        a.btn_p{
+            background-color:#2357ac; padding:10px 30px 10px 30px; margin:0 auto; width:100px; text-align:center;font-size:14px; color:#FFF; text-decoration:none;
         }
-        a{font-size:30px; color:#FFF; text-decoration:none;}
 
     </style>
 </head>
@@ -22,13 +23,11 @@
 <body>
 <div class="wrapper">
     <div><img src="./img_bg_okky_logo.png" class="logo"></div>
-    <h1>웹페이지를 사용할 수 없습니다.</h1>
-    <ul>
-        <li>
+    <h4>웹페이지를 사용할 수 없습니다.</h4>
+    <p>
             <span id="error-text"></span><br/>
             (<span id="error-desc"></span>)
-        </li>
-    </ul>
+    </p>
     <a class="btn_p" href="#" onClick='javascript:retry()'>다시 시도</a>
 </div>
 </body>
