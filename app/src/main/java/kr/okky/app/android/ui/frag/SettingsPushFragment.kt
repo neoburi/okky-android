@@ -100,13 +100,13 @@ class SettingsPushFragment : BaseFragment(){
 
 
     private fun setHeaderTextStyles(){
-        val textBuilder = SpanTextBuilder()
-        textBuilder.append(getString(R.string.settings_push_header_text_01), RelativeSizeSpan(1.0f))
-        textBuilder.append(getString(R.string.settings_push_header_text_02),
-                ForegroundColorSpan(resources.getColor(R.color.color_dddddd)),
-                RelativeSizeSpan(0.8f))
         val tv:TextView = getView(R.id.textView2)
-        tv.text = textBuilder.build()
+        tv.text = SpanTextBuilder().apply {
+            append(getString(R.string.settings_push_header_text_01), RelativeSizeSpan(1.0f))
+            append(getString(R.string.settings_push_header_text_02),
+                    ForegroundColorSpan(resources.getColor(R.color.color_dddddd)),
+                    RelativeSizeSpan(0.8f))
+        }.build()
     }
 
     override fun getViewResourceId(): Int {
