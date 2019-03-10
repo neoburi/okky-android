@@ -30,7 +30,13 @@ enum class Mode{
 }
 
 enum class StoreKey{
-    FCM_TOKEN, FCM_DATA, DATA_STARTING_POINT, PUSH_ACCEPT
+    DRAWER_MENU_JSON,
+    DRAWER_MENU_CHANGED,
+    FCM_TOKEN,
+    FCM_DATA,
+    DATA_STARTING_POINT,
+    PUSH_ACCEPT,
+    PUSH_SET_DATA_JSON
 }
 
 enum class StartingPoint {
@@ -50,7 +56,7 @@ enum class FcmDataKey(
 enum class BroadcastAction(
         var action: String
 ) {
-    PUSN_RECEIVE_ACTION("kr.okky.app.android.PUSH_RECEIVE")
+    PUSH_RECEIVE_ACTION("kr.okky.app.android.PUSH_RECEIVE")
 }
 
 enum class PushType(
@@ -61,8 +67,8 @@ enum class PushType(
 }
 
 const val TAG:String = "OKKY"
-const val DRAWER_MENU_JSON = "NAVIGATION_DRAWER_MENU_JSON"
-const val DRAWER_MENU_CHANGED = "DRAWER_MENU_CHANGED"
+//const val DRAWER_MENU_JSON = "NAVIGATION_DRAWER_MENU_JSON"
+//const val DRAWER_MENU_CHANGED = "DRAWER_MENU_CHANGED"
 
 val MODE: Mode = Mode.SERVICE
 const val DEVICE_TYPE: String = "A"

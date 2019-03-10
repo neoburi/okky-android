@@ -11,11 +11,9 @@ import android.widget.Switch
 import android.widget.TextView
 import com.google.gson.Gson
 import kr.okky.app.android.R
-import kr.okky.app.android.global.DRAWER_MENU_CHANGED
-import kr.okky.app.android.global.DRAWER_MENU_JSON
+import kr.okky.app.android.global.StoreKey
 import kr.okky.app.android.global.loadResourceId
 import kr.okky.app.android.model.NaviMenu
-import kr.okky.app.android.utils.OkkyLog
 import kr.okky.app.android.utils.OkkyUtils
 import kr.okky.app.android.utils.Pref
 
@@ -53,8 +51,8 @@ class SettingsMenuFragment : BaseFragment(){
         val item = mList[position]
         item.isActive = checked
         val jsonTxt= Gson().toJson(mDrawerMenuList)
-        Pref.saveStringValue(DRAWER_MENU_JSON, jsonTxt)
-        Pref.saveBooleanValue(DRAWER_MENU_CHANGED, true)
+        Pref.saveStringValue(StoreKey.DRAWER_MENU_JSON.name, jsonTxt)
+        Pref.saveBooleanValue(StoreKey.DRAWER_MENU_CHANGED.name, true)
     }
 
     companion object {

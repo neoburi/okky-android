@@ -54,7 +54,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     private var mOkkyNavi: OkkyNaviDrawerMenu? = null
     /*private val mPushBroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            if(BroadcastAction.PUSN_RECEIVE_ACTION.action == intent.action){
+            if(BroadcastAction.PUSH_RECEIVE_ACTION.action == intent.action){
                 val data:PushData? = intent.extras?.getParcelable(StoreKey.FCM_DATA.name)
                 handlePushData(data)
             }
@@ -70,7 +70,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
                 .build())
 
         //Pref.init(this)
-        OkkyUtils.checkDrawerMenuJsonOfPref(baseContext)
+        OkkyUtils.checkDrawerMenuJsonInPref(baseContext)
 
         setContentView(R.layout.activity_main)
         findViews()
@@ -180,7 +180,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     }
 
     private fun checkDrawerMenuFlagChanged(){
-        if(Pref.getBooleanValue(DRAWER_MENU_CHANGED, false)){
+        if(Pref.getBooleanValue(StoreKey.DRAWER_MENU_CHANGED.name, false)){
             mOkkyNavi?.loadDrawerMenu()
         }
     }
@@ -378,7 +378,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
     }
 
     /*private fun registerPushBroadcastReceiver(){
-        val filter = IntentFilter(BroadcastAction.PUSN_RECEIVE_ACTION.action)
+        val filter = IntentFilter(BroadcastAction.PUSH_RECEIVE_ACTION.action)
         LocalBroadcastManager.getInstance(baseContext).registerReceiver(mPushBroadcastReceiver, filter)
     }
 
@@ -449,4 +449,6 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
                     Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()*/
                 }
     }
+
+
 }

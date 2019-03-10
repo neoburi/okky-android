@@ -62,7 +62,7 @@ class OkkyFcmService : FirebaseMessagingService() {
     }
 
     private fun pushDataBroadcast(data: PushData) {
-        val it = Intent(BroadcastAction.PUSN_RECEIVE_ACTION.action).apply {
+        val it = Intent(BroadcastAction.PUSH_RECEIVE_ACTION.action).apply {
             putExtras(Bundle().apply {
                 putParcelable(StoreKey.FCM_DATA.name, data)
             })

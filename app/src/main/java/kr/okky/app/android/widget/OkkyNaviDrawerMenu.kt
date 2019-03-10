@@ -2,14 +2,14 @@ package kr.okky.app.android.widget
 
 import android.support.design.widget.NavigationView
 import android.view.MenuItem
-import kr.okky.app.android.global.DRAWER_MENU_CHANGED
+import kr.okky.app.android.global.StoreKey
 import kr.okky.app.android.global.getUrl
 import kr.okky.app.android.global.loadResourceId
 import kr.okky.app.android.model.NaviMenu
 import kr.okky.app.android.ui.MainActivity
 import kr.okky.app.android.utils.OkkyUtils
 import kr.okky.app.android.utils.Pref
-import java.util.ArrayList
+import java.util.*
 
 class OkkyNaviDrawerMenu
 constructor(private val activity: MainActivity,
@@ -48,7 +48,7 @@ constructor(private val activity: MainActivity,
                 }
             }
         }
-        Pref.saveBooleanValue(DRAWER_MENU_CHANGED, false)
+        Pref.saveBooleanValue(StoreKey.DRAWER_MENU_CHANGED.name, false)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

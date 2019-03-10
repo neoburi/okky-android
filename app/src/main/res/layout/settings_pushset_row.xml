@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/dp_64"
+    android:background="@drawable/border_bottom_1px"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/menu_title"
+        style="@style/TextAppearance.AppCompat.Small.Inverse"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:paddingEnd="@dimen/dp_32"
+        android:lineSpacingMultiplier="1.1"
+        tools:text="IT News &amp; 정보" />
+
+    <Switch
+        android:id="@+id/menu_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_16"
+        android:checked="true" />
+</LinearLayout>

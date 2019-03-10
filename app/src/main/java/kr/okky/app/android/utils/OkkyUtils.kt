@@ -7,34 +7,58 @@ import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kr.okky.app.android.global.DRAWER_MENU_JSON
-import kr.okky.app.android.global.TAG
+import kr.okky.app.android.global.StoreKey
 import kr.okky.app.android.model.NaviMenu
+import kr.okky.app.android.model.PushSetData
 import java.io.*
 import java.util.*
 
 
 object OkkyUtils {
-    const val menuFile = "drawerMenu.json"
-    fun checkDrawerMenuJsonOfPref(context:Context){
-        if(notExistStoredMenuJson()){
+    private const val menuFile = "drawerMenu.json"
+    private const val pushFile = "push.json"
+    fun checkDrawerMenuJsonInPref(context:Context){
+        if(Pref.getStringValue(StoreKey.DRAWER_MENU_JSON.name, "").isNullOrEmpty()){
             Pref.saveStringValue(
-                    DRAWER_MENU_JSON,
-                    readMenuJsonFromAssets(context.assets)
+                    StoreKey.DRAWER_MENU_JSON.name,
+                    readMenuJsonFromAssets(context.assets, menuFile)
             )
         }
+        checkPushSetJsonInPref(context)
     }
 
     fun notExistStoredMenuJson():Boolean
-            = Pref.getStringValue(DRAWER_MENU_JSON, "").isNullOrEmpty()
-
-    fun getDrawerMenuJson():String
-            = Pref.getStringValue(DRAWER_MENU_JSON, "[]")!!
+            = Pref.getStringValue(StoreKey.DRAWER_MENU_JSON.name, "").isNullOrEmpty()
 
     fun createNavigationDrawerMenu(): List<NaviMenu>{
-        val jsonStr = OkkyUtils.getDrawerMenuJson()
+        val jsonStr = Pref.getStringValue(StoreKey.DRAWER_MENU_JSON.name, "[]")!!
         val listType = object : TypeToken<ArrayList<NaviMenu>>() {}.type
-        return Gson().fromJson<List<NaviMenu>>(jsonStr, listType)
+        return Gson().fromJson(jsonStr, listType)
+    }
+
+    fun checkPushSetJsonInPref(context: Context):Boolean
+        = when(Pref.getStringValue(StoreKey.PUSH_SET_DATA_JSON.name, "").isNullOrEmpty()){
+            true->{
+                Pref.saveStringValue(
+                    StoreKey.PUSH_SET_DATA_JSON.name,
+                    readMenuJsonFromAssets(context.assets, pushFile)
+                )
+                true
+            }
+            else->{
+                false
+            }
+    }
+
+    fun loadPushSettingData():List<PushSetData>{
+        val jsonStr = Pref.getStringValue(StoreKey.PUSH_SET_DATA_JSON.name, "[]")
+        val listType = object : TypeToken<ArrayList<PushSetData>>(){}.type
+        return Gson().fromJson(jsonStr, listType)
+    }
+
+    fun storePushSetDataJsonToPref(list:List<PushSetData>){
+        val jsonTxt = Gson().toJson(list)
+        Pref.saveStringValue(StoreKey.PUSH_SET_DATA_JSON.name, jsonTxt)
     }
 
     fun existDrawerMenuJson(context:Context):Boolean
@@ -56,12 +80,12 @@ object OkkyUtils {
         return false
     }
 
-    fun readMenuJsonFromAssets(assetManager: AssetManager): String {
+    fun readMenuJsonFromAssets(assetManager: AssetManager, assetFilename:String): String {
         val contents = StringBuilder()
         var input: InputStream? = null
         var reader: BufferedReader? = null
         try {
-            input = assetManager.open(menuFile)
+            input = assetManager.open(assetFilename)
             reader = BufferedReader(InputStreamReader(input))
             while (true) {
                 val line = reader.readLine()
