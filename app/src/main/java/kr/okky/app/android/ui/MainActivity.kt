@@ -403,7 +403,9 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
             shareText?.let {
                 mWebWrapper?.let { wrapper->
                     wrapper.mSharedData = SharedData().parseIntent(intent)
-                    wrapper.shareContent()
+                    if (from != "onCreate()") {
+                        wrapper.shareContent()
+                    }
                 }
                 return
             }

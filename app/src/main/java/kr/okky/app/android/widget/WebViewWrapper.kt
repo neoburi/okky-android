@@ -201,6 +201,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
             }
 
             override fun deny() {
+                mSharedData?.clear()
                 //Toast.makeText(mActivity, mActivity.getString(R.string.txt_share_canceled), Toast.LENGTH_SHORT).show()
             }
         }

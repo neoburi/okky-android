@@ -1,4 +1,5 @@
 /build
 /release
+/debug
 proguard.pro
 google-services.json
