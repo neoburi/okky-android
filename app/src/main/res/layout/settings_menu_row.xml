@@ -27,10 +27,10 @@
         android:paddingStart="@dimen/dp_32"
         tools:text="IT News &amp; 정보" />
 
-    <CheckBox
-        android:id="@+id/checkbox"
+    <Switch
+        android:id="@+id/menu_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
-        android:checked="false" />
+        android:checked="true" />
 </LinearLayout>
