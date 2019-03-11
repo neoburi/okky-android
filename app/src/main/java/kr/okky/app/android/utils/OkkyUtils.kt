@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken
 import kr.okky.app.android.global.StoreKey
 import kr.okky.app.android.model.NaviMenu
 import kr.okky.app.android.model.PushSetData
+import org.json.JSONArray
 import java.io.*
 
 
@@ -78,14 +79,13 @@ object OkkyUtils {
     }
 
     fun getActiveTopics():String{
-        val items = loadPushSettingData()
-        val target = ArrayList<PushSetData>()
-        items.forEach {
-            if(it.active == true){
-                target.add(it)
-            }
+        val jsonAry = JSONArray()
+        loadPushSettingData().filter {
+            it.active == true
+        }.forEach {
+            jsonAry.put(it.topic)
         }
-        return Gson().toJson(target)
+        return jsonAry.toString()
     }
 
     fun existDrawerMenuJson(context:Context):Boolean
