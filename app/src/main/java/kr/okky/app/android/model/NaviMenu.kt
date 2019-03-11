@@ -1,5 +1,6 @@
 package kr.okky.app.android.model
 
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 class NaviMenu {
@@ -17,6 +18,8 @@ class NaviMenu {
     var type: Int = -1
     @SerializedName("childMenu")
     var childMenu: List<NaviMenu>? = null
+    @Expose(serialize = false, deserialize = false)
+    var checkedFlag:Boolean = false
 
     fun isParentRow():Boolean = type == 0
 

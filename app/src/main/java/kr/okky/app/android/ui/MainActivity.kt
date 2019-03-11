@@ -399,6 +399,14 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
             bundle.keySet().iterator().forEach { k ->
                 OkkyLog.err(TAG, "$from bundle key=$k, value=${bundle[k]}")
             }
+            val shareText:String? = it.getString("android.intent.extra.TEXT")
+            shareText?.let {
+                mWebWrapper?.let { wrapper->
+                    wrapper.mSharedData = SharedData().parseIntent(intent)
+                    wrapper.shareContent()
+                }
+                return
+            }
             val pushData: PushData? = it.getParcelable(StoreKey.FCM_DATA.name) as? PushData
 
             pushData?.let { data ->

@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/dp_16"
-    android:layout_marginStart="@dimen/dp_16"
-    android:background="@drawable/border_menu"
+    android:layout_marginEnd="@dimen/dp_8"
+    android:layout_marginStart="@dimen/dp_8"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:weightSum="1">
@@ -20,17 +19,18 @@
         android:id="@+id/menu_title"
         style="@style/TextAppearance.AppCompat.Small.Inverse"
         android:layout_width="0dp"
-        android:layout_height="@dimen/dp_40"
+        android:layout_height="@dimen/dp_32"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:paddingEnd="@dimen/dp_32"
-        android:paddingStart="@dimen/dp_32"
+        android:paddingEnd="@dimen/dp_8"
+        android:paddingStart="@dimen/dp_8"
         tools:text="IT News &amp; 정보" />
 
-    <CheckBox
-        android:id="@+id/checkbox"
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/radiobutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
-        android:checked="false" />
+        android:checked="false"
+        android:buttonTint="@color/colorPrimary"/>
 </LinearLayout>

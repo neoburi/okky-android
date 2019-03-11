@@ -19,10 +19,13 @@ class GatewayActivity : BaseActivity() {
         /*crashlyticsTest()*/
 
         Handler().postDelayed({
-            val mainIntent = Intent(baseContext, MainActivity::class.java)
-            if(intent?.extras != null) {
-                mainIntent.putExtras(intent?.extras)
+            val mainIntent = Intent(baseContext, MainActivity::class.java).also {
+                if(intent.extras != null) {
+                    it.putExtras(intent.extras)
+                }
+                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP xor Intent.FLAG_ACTIVITY_NEW_TASK)
             }
+
             startActivity(mainIntent)
             finish()
         },1500)

@@ -87,4 +87,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="default_notification_channel_id">Default</string>
+
+    <string name="title_share_target_selection">공유할 게시판을 선택해주세요.</string>
+    <string name="txt_share_canceled">공유가 취소되었습니다.</string>
+    <string name="txt_confirm">확인</string>
+    <string name="txt_cancel">취소</string>
 </resources>

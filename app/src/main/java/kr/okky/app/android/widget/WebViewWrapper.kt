@@ -20,13 +20,12 @@ import kr.okky.app.android.model.PushData
 import kr.okky.app.android.model.SharedData
 import kr.okky.app.android.ui.BaseActivity
 import kr.okky.app.android.ui.MainActivity
+import kr.okky.app.android.ui.frag.ShareTargetSelectionFragment
 import kr.okky.app.android.utils.OkkyLog
 import kr.okky.app.android.utils.OkkyUtils
 import kr.okky.app.android.utils.Pref
 import java.io.File
 import java.io.IOException
-import kotlin.collections.HashMap
-
 
 class WebViewWrapper constructor(val mActivity: BaseActivity){
     var mWebView:WebView? = null
@@ -172,7 +171,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                 }
             }
             if(mSharedData?.hasContent()!!){
-                mJsBridge?.shareContent()
+                shareContent()
             }
             checkLoginStatus()
         }
@@ -185,15 +184,29 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
         override fun onReceivedError(view: WebView, errorCode: Int, description: String, failingUrl: String) {
             OkkyLog.err(TAG, "page load fail : errorCode=$errorCode, des=$description")
             mWebView?.loadUrl("file:///android_asset/html/error.html?code=$errorCode&desc=$description")
-            /*if(description.contains("ERR_INTERNET_DISCONNECTED")){
-
-            }
-            if (mErrorCodes.contains(errorCode)) {
+            /*if (mErrorCodes.contains(errorCode)) {
                 clearWebView()
                 loadUrl(getUrl())
             }*/
         }
 
+    }
+
+    fun shareContent(){
+        val acceptor = object:AbstractAcceptor(){
+            override fun accept(vararg params: Any) {
+                val section = params[0] as String
+                loadJavaScript("javascript:shareContent('$section','${mSharedData?.encodedSubject()}', '${mSharedData?.encodedText()}')")
+                mSharedData?.clear()
+            }
+
+            override fun deny() {
+                //Toast.makeText(mActivity, mActivity.getString(R.string.txt_share_canceled), Toast.LENGTH_SHORT).show()
+            }
+        }
+        with(mActivity as MainActivity){
+            ShareTargetSelectionFragment.newInstance(this, acceptor).show(fragmentManager, "share_target_selection")
+        }
     }
 
     fun setPaddingBottom() {
@@ -333,12 +346,6 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
         }
 
         @JavascriptInterface
-        fun shareContent(){
-            loadJavaScript("javascript:shareContent('${mSharedData?.encodedSubject()}', '${mSharedData?.encodedText()}')")
-            mSharedData?.clear()
-        }
-
-        @JavascriptInterface
         fun retry() {
             mWebView?.let {
                 it.post {
@@ -355,8 +362,11 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
          */
         @JavascriptInterface
         fun getPushToken(funcName: String?) {
+            val topics = OkkyUtils.getActiveTopics()
             loadJavaScript(
-                    "javascript:$funcName('$DEVICE_TYPE', '${Pref.getStringValue(StoreKey.FCM_TOKEN.name, "")}', ${Pref.getBooleanValue(StoreKey.PUSH_ACCEPT.name, false)})")
+                    "javascript:$funcName('$DEVICE_TYPE', '${Pref.getStringValue(StoreKey.FCM_TOKEN.name, "")}'," +
+                            "${Pref.getBooleanValue(StoreKey.PUSH_ACCEPT.name, false)}," +
+                            "'$topics')")
         }
 
         @JavascriptInterface
@@ -378,6 +388,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
     }
 
     fun loadJavaScript(script: String) {
+        OkkyLog.err(TAG, "javascript:$script")
         mWebView?.loadUrl(script)
     }
 

@@ -11,7 +11,6 @@ import kr.okky.app.android.global.StoreKey
 import kr.okky.app.android.model.NaviMenu
 import kr.okky.app.android.model.PushSetData
 import java.io.*
-import java.util.*
 
 
 object OkkyUtils {
@@ -34,6 +33,23 @@ object OkkyUtils {
         val jsonStr = Pref.getStringValue(StoreKey.DRAWER_MENU_JSON.name, "[]")!!
         val listType = object : TypeToken<ArrayList<NaviMenu>>() {}.type
         return Gson().fromJson(jsonStr, listType)
+    }
+
+    val shareTargetExceptions = ArrayList<String>().apply {
+        add("/articles/promote")
+        add("/articles/recruit")
+        add("/articles/resumes")
+        add("/user/info/35324")
+        add("/articles/recruit?filter.jobType=FULLTIME")
+        add("info@okky.kr")
+        add("https://github.com/okjsp/okky/issues")
+        add("settings://")
+        add("/user/info/35324")
+    }
+
+    fun loadShareTargetSections():List<NaviMenu>{
+        var secs = createNavigationDrawerMenu()
+        return secs.filterIndexed { index, naviMenu -> index < 5 }
     }
 
     fun checkPushSetJsonInPref(context: Context):Boolean
@@ -59,6 +75,17 @@ object OkkyUtils {
     fun storePushSetDataJsonToPref(list:List<PushSetData>){
         val jsonTxt = Gson().toJson(list)
         Pref.saveStringValue(StoreKey.PUSH_SET_DATA_JSON.name, jsonTxt)
+    }
+
+    fun getActiveTopics():String{
+        val items = loadPushSettingData()
+        val target = ArrayList<PushSetData>()
+        items.forEach {
+            if(it.active == true){
+                target.add(it)
+            }
+        }
+        return Gson().toJson(target)
     }
 
     fun existDrawerMenuJson(context:Context):Boolean
