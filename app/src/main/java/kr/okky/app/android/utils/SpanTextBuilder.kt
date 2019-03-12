@@ -8,7 +8,7 @@ import java.util.*
 class SpanTextBuilder {
 
     private val spanTextSection:ArrayList<SpanTextSection> = ArrayList()
-    private val stringBuilder:StringBuilder = java.lang.StringBuilder()
+    private val stringBuilder:StringBuilder = StringBuilder()
 
     fun append(text:String, vararg styles:CharacterStyle):SpanTextBuilder{
         styles.let {
@@ -18,9 +18,8 @@ class SpanTextBuilder {
         return this
     }
 
-    fun appendWithSpace(text: String, vararg styles: CharacterStyle): SpanTextBuilder {
-        return append("$text ", *styles)
-    }
+    fun appendWithSpace(text: String, vararg styles: CharacterStyle):
+            SpanTextBuilder = append("$text ", *styles)
 
     fun build(): SpannableStringBuilder {
         val builder = SpannableStringBuilder(stringBuilder.toString())
@@ -30,9 +29,7 @@ class SpanTextBuilder {
         return builder
     }
 
-    override fun toString(): String {
-        return stringBuilder.toString()
-    }
+    override fun toString(): String = stringBuilder.toString()
 
     internal inner class SpanTextSection(private var text: String, private var index: Int, vararg styles: CharacterStyle) {
         private var styles:Array<CharacterStyle>

@@ -27,22 +27,15 @@ data class PushSetData(
         parcel.writeValue(active)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
-    override fun toString(): String {
-        return "PushSetData(topic=$topic, title=$title, description=$description, active=$active)"
-    }
+    override fun toString(): String
+            = "PushSetData(topic=$topic, title=$title, description=$description, active=$active)"
 
     companion object CREATOR : Parcelable.Creator<PushSetData> {
-        override fun createFromParcel(parcel: Parcel): PushSetData {
-            return PushSetData(parcel)
-        }
+        override fun createFromParcel(parcel: Parcel): PushSetData = PushSetData(parcel)
 
-        override fun newArray(size: Int): Array<PushSetData?> {
-            return arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<PushSetData?> = arrayOfNulls(size)
     }
 
 }

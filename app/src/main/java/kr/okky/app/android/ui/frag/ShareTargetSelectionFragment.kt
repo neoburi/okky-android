@@ -118,7 +118,6 @@ class ShareTargetSelectionFragment:DialogFragment() {
                 0 -> {
                     holder.icon?.visibility = View.VISIBLE
                     holder.icon?.setImageResource(loadResourceId(mContext, "drawable", item.icon!!))
-                    //holder.itemView.setBackgroundResource(R.drawable.border_menu)
                 }
                 else -> {
                     holder.icon?.visibility = View.INVISIBLE

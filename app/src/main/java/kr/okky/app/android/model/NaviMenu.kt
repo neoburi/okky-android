@@ -23,11 +23,7 @@ class NaviMenu {
 
     fun isParentRow():Boolean = type == 0
 
-    fun hasIcon(): Boolean {
-        return !icon!!.isEmpty()
-    }
+    fun hasIcon(): Boolean = !icon!!.isEmpty()
 
-    fun hasChild(): Boolean {
-        return childMenu != null && childMenu!!.isNotEmpty()
-    }
+    fun hasChild(): Boolean = childMenu != null && childMenu!!.isNotEmpty()
 }

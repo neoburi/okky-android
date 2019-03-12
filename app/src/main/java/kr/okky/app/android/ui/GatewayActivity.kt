@@ -12,7 +12,7 @@ import kr.okky.app.android.global.Mode
 
 
 class GatewayActivity : BaseActivity() {
-    val tag:String = "Okky"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gateway)
@@ -28,7 +28,7 @@ class GatewayActivity : BaseActivity() {
 
             startActivity(mainIntent)
             finish()
-        },1500)
+        },1000)
     }
 
     private fun crashlyticsTest(){
