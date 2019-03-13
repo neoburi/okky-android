@@ -112,24 +112,30 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
 
         registerForContextMenu(mWebWrapper?.mWebView)
 
-        val drawer = getView(R.id.drawer_layout) as DrawerLayout
-        val toggle = ActionBarDrawerToggle(
-                this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer.addDrawerListener(toggle)
-        toggle.syncState()
+        (getView(R.id.drawer_layout) as DrawerLayout).apply {
+            ActionBarDrawerToggle(
+                    this@MainActivity, this, null,
+                    R.string.navigation_drawer_open,
+                    R.string.navigation_drawer_close).apply {
+                addDrawerListener(this)
+                syncState()
+            }
+        }
 
-        mOkkyNavi = OkkyNaviDrawerMenu(this, getView(R.id.nav_view) as NavigationView)
-        mOkkyNavi?.loadDrawerMenu()
+        mOkkyNavi = OkkyNaviDrawerMenu(this, getView(R.id.nav_view) as NavigationView).apply {
+            loadDrawerMenu()
+        }
     }
 
     override fun attachEvents() {
-        mWebWrapper?.mWebView!!.setOnKeyListener(this)
-        mWebWrapper?.mWebView!!.setOnClickListener { view -> toggleDrawer() }
-        val wv = mWebWrapper?.mWebView as OkkyWebView
-        wv.onScrollChangeListener = this
 
+        with(mWebWrapper?.mWebView as OkkyWebView){
+            setOnKeyListener(this@MainActivity)
+            setOnClickListener{ toggleDrawer() }
+            onScrollChangeListener = this@MainActivity
+        }
         val layout = getView<ConstraintLayout>(R.id.box_main)//for soft keyboard show/hide
-//        val layout:ConstraintLayout? = null //crashlytics force test
+
         layout.viewTreeObserver!!.addOnGlobalLayoutListener {
             val r = Rect()
             layout.getWindowVisibleDisplayFrame(r)
@@ -403,6 +409,7 @@ class MainActivity : BaseActivity(), View.OnKeyListener, EasyPermissions.Permiss
             shareText?.let {
                 mWebWrapper?.let { wrapper->
                     wrapper.mSharedData = SharedData().parseIntent(intent)
+
                     if (from != "onCreate()") {
                         wrapper.shareContent()
                     }

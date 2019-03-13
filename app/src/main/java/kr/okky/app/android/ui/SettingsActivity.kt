@@ -29,11 +29,13 @@ class SettingsActivity : BaseActivity() {
     }
 
     override fun initViews() {
-        val ab = supportActionBar
-        ab!!.setTitle(R.string.settings)
-        ab.setDisplayHomeAsUpEnabled(true)
-        val tab = getView<TabLayout>(R.id.tabs)
-        tab.setupWithViewPager(mPager)
+        supportActionBar!!.also {
+            it.setTitle(R.string.settings)
+            it.setDisplayHomeAsUpEnabled(true)
+        }
+        getView<TabLayout>(R.id.tabs).also {
+            it.setupWithViewPager(mPager)
+        }
     }
 
     override fun attachEvents() {
@@ -72,16 +74,10 @@ class SettingsActivity : BaseActivity() {
                 SettingsInfoFragment()
         )
 
-        override fun getItem(position: Int): Fragment? {
-            return mItems[position]
-        }
+        override fun getItem(position: Int): Fragment? = mItems[position]
 
-        override fun getCount(): Int {
-            return titles.size
-        }
+        override fun getCount(): Int = titles.size
 
-        override fun getPageTitle(position: Int): CharSequence? {
-            return titles[position]
-        }
+        override fun getPageTitle(position: Int): CharSequence? = titles[position]
     }
 }

@@ -48,9 +48,7 @@ abstract class BaseFragment : Fragment(), ViewControl {
         throw IllegalStateException("This method must be implemented by subclass.")
     }
 
-    override fun <T : View> getView(viewResourceId: Int): T {
-        return mRootView!!.findViewById(viewResourceId)
-    }
+    override fun <T : View> getView(viewResourceId: Int): T = mRootView!!.findViewById(viewResourceId)
 
     fun getRootView():View = mRootView!!
 

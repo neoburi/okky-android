@@ -27,13 +27,9 @@ data class PushContent(
         parcel.writeString(image)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
-    override fun toString(): String {
-        return "PushContent(title=$title, message=$message)"
-    }
+    override fun toString(): String = "PushContent(title=$title, message=$message)"
 
     fun hasImage(): Boolean {
         if ((image == null) or (image?.isEmpty()!!)) {
@@ -43,13 +39,8 @@ data class PushContent(
     }
 
     companion object CREATOR : Parcelable.Creator<PushContent> {
-        override fun createFromParcel(parcel: Parcel): PushContent {
-            return PushContent(parcel)
-        }
+        override fun createFromParcel(parcel: Parcel): PushContent = PushContent(parcel)
 
-        override fun newArray(size: Int): Array<PushContent?> {
-            return arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<PushContent?> = arrayOfNulls(size)
     }
-
 }

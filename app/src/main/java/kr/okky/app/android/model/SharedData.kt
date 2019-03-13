@@ -19,25 +19,18 @@ data class SharedData(
         parcel.writeString(text)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<SharedData> {
-        override fun createFromParcel(parcel: Parcel): SharedData {
-            return SharedData(parcel)
-        }
+        override fun createFromParcel(parcel: Parcel): SharedData = SharedData(parcel)
 
-        override fun newArray(size: Int): Array<SharedData?> {
-            return arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<SharedData?> = arrayOfNulls(size)
     }
 
     fun parseIntent(itt:Intent):SharedData{
-        val bundle = itt.extras
-        bundle?.let {
-            subject = bundle.getString("android.intent.extra.SUBJECT")
-            text = bundle.getString("android.intent.extra.TEXT")
+        itt.extras?.let {
+            subject = it.getString("android.intent.extra.SUBJECT")
+            text = it.getString("android.intent.extra.TEXT")
             /*bundle.keySet().forEach { k->
                 OkkyLog.log("key=$k, value=${bundle[k]}")
             }*/
@@ -47,21 +40,19 @@ data class SharedData(
     }
 
     fun encodedSubject():String {
-      return when(subject == null){
+      return when(subject.isNullOrBlank()){
           true -> ""
           false -> URLEncoder.encode(subject, "utf-8")
       }
     }
 
     fun encodedText():String =
-            when(text == null){
+            when(text.isNullOrBlank()){
                 true -> ""
                 false -> URLEncoder.encode(text, "utf-8")
             }
 
-    fun hasContent():Boolean{
-        return (text != null) && (text!!.isNotBlank())
-    }
+    fun hasContent():Boolean = (text != null) && (text!!.isNotBlank())
 
     fun clear(){
         subject = null

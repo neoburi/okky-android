@@ -43,25 +43,18 @@ class PushData() : Parcelable {
         parcel.writeParcelable(advertise, flags)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
 
     fun isAd(): Boolean = PushType.ADVERTISE.type == pushType
 
-    override fun toString(): String {
-        return "PushData(pushType=$pushType, content=$content, advertise=$advertise, startingPoint=$startingPoint)"
-    }
+    override fun toString(): String
+            = "PushData(pushType=$pushType, content=$content, advertise=$advertise, startingPoint=$startingPoint)"
 
     companion object CREATOR : Parcelable.Creator<PushData> {
-        override fun createFromParcel(parcel: Parcel): PushData {
-            return PushData(parcel)
-        }
+        override fun createFromParcel(parcel: Parcel): PushData = PushData(parcel)
 
-        override fun newArray(size: Int): Array<PushData?> {
-            return arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<PushData?> = arrayOfNulls(size)
 
         val TAG: String = PushData::class.java.simpleName
     }
