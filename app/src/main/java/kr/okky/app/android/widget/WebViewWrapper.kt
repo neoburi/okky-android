@@ -129,9 +129,11 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
                 }
                 url.startsWith(UrlCompareValue.MARKET.value()) -> {
                     moveToMarket(url)
+                    return true
                 }
                 url.startsWith(UrlCompareValue.EMAIL.value()) -> {
                     launchEmailApp(url.replaceFirst(UrlCompareValue.EMAIL.value(), ""))
+                    return true
                 }
                 url.startsWith(UrlCompareValue.HTTP.value()) -> {
                     var loadTarget: String = url
