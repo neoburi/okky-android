@@ -1,6 +1,6 @@
 package kr.okky.app.android.widget
 
-import android.support.design.widget.NavigationView
+import com.google.android.material.navigation.NavigationView
 import android.view.MenuItem
 import kr.okky.app.android.global.StoreKey
 import kr.okky.app.android.global.getUrl

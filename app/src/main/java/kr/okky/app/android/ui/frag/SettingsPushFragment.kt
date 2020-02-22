@@ -1,8 +1,8 @@
 package kr.okky.app.android.ui.frag
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
@@ -54,7 +54,7 @@ class SettingsPushFragment : BaseFragment(){
     private inner class PushSettingAdapter(
             private val context:Context,
             private val list:List<PushSetData>
-    ):RecyclerView.Adapter<PushSettingAdapter.ViewHolder>(){
+    ) : RecyclerView.Adapter<PushSettingAdapter.ViewHolder>() {
         private var inflater:LayoutInflater? = null
         init{
             inflater = LayoutInflater.from(context)
@@ -82,7 +82,7 @@ class SettingsPushFragment : BaseFragment(){
             }
         }
 
-        internal inner class ViewHolder(itemView:View):RecyclerView.ViewHolder(itemView), View.OnClickListener{
+        internal inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
             var title:TextView? = null
             var switch:Switch? = null
             init {

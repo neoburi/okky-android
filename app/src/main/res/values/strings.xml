@@ -92,4 +92,5 @@
     <string name="txt_share_canceled">공유가 취소되었습니다.</string>
     <string name="txt_confirm">확인</string>
     <string name="txt_cancel">취소</string>
+    <string name="api_key">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoLg+AAHbj5u7kcLWPY/Eip8LzHq9vuS0e9tfJuRgxbxIOJVvBA+AqHZGKtmFPIANxIytFiv++uMG4mYOfqQbKfPiCylYfxgFkVPpJf6lphcafv7ksPHoIGdeDmcSCPMlAYuR9jvdX18G3LJWrCyHPdWg3SB9q9zxcZwDC2tbqEQ2353H7dwbFjmMhf8tyvX6xmmo0XeZRPNGDfBkYRlRkrUvwaJkmpFBxyHmZNcDANd+NNQdrQegr2dtZIXr6rhvXeMMxCz8mz/wgIrxVNepdPsH7L2gpNTV0Pab+Y85sI6q7BTrVm2NU5Z0MIJKSZdYHRYS7QmX1fs4OO3HbkiLwQIDAQAB</string>
 </resources>

@@ -1,7 +1,7 @@
 package kr.okky.app.android.widget
 
 import android.annotation.TargetApi
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
@@ -9,8 +9,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
-import android.support.v4.app.ShareCompat
-import android.support.v7.app.AlertDialog
+import androidx.core.app.ShareCompat
+import androidx.appcompat.app.AlertDialog
 import android.view.View
 import android.webkit.*
 import kr.okky.app.android.BuildConfig
@@ -317,7 +317,7 @@ class WebViewWrapper constructor(val mActivity: BaseActivity){
     fun onActivityResult(reqCode:Int, resultCode:Int, data:Intent?){
         var results: Array<Uri>? = null
 
-        (resultCode == Activity.RESULT_OK).let {
+        (resultCode == AppCompatActivity.RESULT_OK).let {
             data?.let {
                 it.dataString?.let {
                     results = arrayOf(Uri.parse(it))
